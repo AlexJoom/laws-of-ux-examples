@@ -169,7 +169,33 @@ a { color: var(--accent); }
    Law page
    -------------------------------------------------------------------------- */
 
-.law-intro { padding: 3rem 0 1rem; }
+.law-intro {
+  padding: 3rem 0 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(130px, 18vw, 190px);
+  column-gap: 2.5rem;
+}
+
+.law-intro > *:not(.law-art) { grid-column: 1; }
+
+.law-intro .tag { justify-self: start; }
+
+/* Law illustration — original artwork from lawsofux.com (© Jon Yablonski, CC BY-NC-ND 4.0) */
+.law-intro .law-art {
+  grid-column: 2;
+  grid-row: 1 / span 4;
+  align-self: center;
+  border-radius: var(--radius);
+  padding: 1.1rem;
+  box-shadow: var(--shadow);
+}
+
+.law-intro .law-art img { display: block; width: 100%; height: auto; }
+
+@media (max-width: 640px) {
+  .law-intro { grid-template-columns: 1fr; }
+  .law-intro .law-art { grid-column: 1; grid-row: 1; width: 7.5rem; margin-bottom: 1.2rem; padding: .8rem; }
+}
 
 .law-intro h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); letter-spacing: -.02em; }
 
