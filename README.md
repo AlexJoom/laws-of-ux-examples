@@ -36,7 +36,8 @@ search and Postel's Law phone input are live, so you can *feel* the difference.
 
 ## Credits &amp; license
 
-Law names and definitions are from [Laws of UX](https://lawsofux.com/) by
+Law names, definitions, and the card illustrations (`assets/img/*.svg`, reproduced
+unmodified) are from [Laws of UX](https://lawsofux.com/) by
 [Jon Yablonski](https://jonyablonski.com/), licensed under
 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
 Every page links back to the corresponding law on lawsofux.com.

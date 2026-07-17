@@ -121,6 +121,20 @@ a { color: var(--accent); }
 
 .law-card:hover { transform: translateY(-2px); border-color: var(--accent); }
 
+/* Card illustration — original artwork from lawsofux.com (© Jon Yablonski, CC BY-NC-ND 4.0) */
+.law-card .card-art {
+  display: block;
+  margin: -1.1rem -1.2rem .6rem;
+  border-radius: calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;
+  overflow: hidden;
+}
+
+.law-card .card-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .law-card h2 { font-size: 1.05rem; margin: 0; }
 
 .law-card p { color: var(--muted); font-size: .88rem; margin: 0; }
