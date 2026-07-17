@@ -107,13 +107,20 @@ a { color: var(--accent); }
 
 .hero p { color: var(--muted); max-width: 60ch; font-size: 1.05rem; }
 
-/* Audience value cards */
+/* Audience value section (below the law grid) */
 
-.audience {
+.audience { padding: 1.5rem 0 1rem; }
+
+.audience h2 {
+  font-size: 1.35rem;
+  letter-spacing: -.01em;
+  margin-bottom: 1rem;
+}
+
+.aud-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
-  padding: .25rem 0 .75rem;
 }
 
 .aud-card {
@@ -122,13 +129,10 @@ a { color: var(--accent); }
   border-radius: var(--radius);
   padding: 1.2rem 1.4rem;
   box-shadow: var(--shadow);
+  color: var(--muted);
+  font-size: .95rem;
+  margin: 0;
 }
-
-.aud-card .aud-icon { font-size: 1.6rem; margin-bottom: .35rem; }
-
-.aud-card h2 { font-size: 1rem; }
-
-.aud-card p { color: var(--muted); font-size: .9rem; margin: 0; }
 
 .law-grid {
   display: grid;
