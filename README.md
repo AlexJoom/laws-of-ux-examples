@@ -36,11 +36,16 @@ search and Postel's Law phone input are live, so you can *feel* the difference.
 
 ## Credits &amp; license
 
-Law names, definitions, and the card illustrations (`assets/img/*.svg`, reproduced
-unmodified) are from [Laws of UX](https://lawsofux.com/) by
-[Jon Yablonski](https://jonyablonski.com/), licensed under
-[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
-Every page links back to the corresponding law on lawsofux.com.
+This project is dual-licensed — see [LICENSE](LICENSE) for the full text:
 
-The before/after demos themselves are original, non-commercial teaching examples
-built as a companion to that site — please keep the attribution intact if you reuse them.
+- **Original work** (all HTML/CSS/JS, the before/after demos, and their copy) is
+  open source under the **[MIT license](LICENSE)** — use it freely, attribution
+  appreciated.
+- **Laws of UX content** — the law names, one-sentence definitions, and the card
+  illustrations (`assets/img/*.svg`, reproduced unmodified) — is by
+  [Jon Yablonski](https://jonyablonski.com/) from [Laws of UX](https://lawsofux.com/)
+  and remains under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/):
+  non-commercial use only, no derivatives, attribution required. It is **not**
+  covered by the MIT license and cannot be relicensed by this project.
+
+Every page links back to the corresponding law on lawsofux.com.
