@@ -129,10 +129,11 @@ a { color: var(--accent); }
   border-radius: var(--radius);
   padding: 1.2rem 1.4rem;
   box-shadow: var(--shadow);
-  color: var(--muted);
-  font-size: .95rem;
-  margin: 0;
 }
+
+.aud-card h3 { font-size: 1rem; margin-bottom: .45rem; }
+
+.aud-card p { color: var(--muted); font-size: .92rem; margin: 0; }
 
 .law-grid {
   display: grid;
