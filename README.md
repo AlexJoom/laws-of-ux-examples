@@ -9,6 +9,15 @@ non-designers. Each of the 21 core Laws of UX gets a small, realistic product de
 Every page also includes a "What changed" breakdown and a ready-made
 **"Explaining it to stakeholders"** pitch in plain business language.
 
+## Who is this for
+
+- **Juniors in UX/UI and product design** — direction: build design intuition by
+  watching each law break a real interface and then fix it, instead of memorizing theory.
+- **Product managers and business managers** — efficiency: every demo is a 60-second
+  design review with the problem, the fix, and the business case attached.
+- **Designers of any level** — authority: win reviews with evidence instead of opinion.
+  Show the law working, cite the research, and read the stakeholder pitch out loud.
+
 ## Running it
 
 It's a fully static site with zero dependencies and no build step:
