@@ -77,6 +77,15 @@ a { color: var(--accent); }
 
 .site-header .back:hover { color: var(--accent); }
 
+.site-header .github {
+  margin-left: auto;
+  font-size: .9rem;
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.site-header .github:hover { color: var(--accent); }
+
 .site-footer {
   margin: 4rem 0 2rem;
   text-align: center;
