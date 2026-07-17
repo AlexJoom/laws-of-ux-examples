@@ -166,10 +166,15 @@ a { color: var(--accent); }
   overflow: hidden;
 }
 
+.law-card .card-art {
+  aspect-ratio: 1;
+}
+
 .law-card .card-art img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
 }
 
 .law-card h2 { font-size: 1.05rem; margin: 0; }
