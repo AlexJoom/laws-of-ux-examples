@@ -34,7 +34,12 @@ Each law page is self-contained (demo-specific CSS/JS lives inline), so pages ca
 shared or embedded individually. Some demos are interactive — e.g. the Doherty Threshold
 search and Postel's Law phone input are live, so you can *feel* the difference.
 
-## Credits
+## Credits &amp; license
 
-Law names and definitions are from [Laws of UX](https://lawsofux.com/) by Jon Yablonski.
-The demos are original teaching examples.
+Law names and definitions are from [Laws of UX](https://lawsofux.com/) by
+[Jon Yablonski](https://jonyablonski.com/), licensed under
+[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+Every page links back to the corresponding law on lawsofux.com.
+
+The before/after demos themselves are original, non-commercial teaching examples
+built as a companion to that site — please keep the attribution intact if you reuse them.
