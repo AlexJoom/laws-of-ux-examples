@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miller's Law — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .mil- prefix) */
+    .mil-checkout { max-width: 34rem; }
+    .mil-code-input {
+      font: inherit;
+      font-family: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+      font-size: 1.05rem;
+      letter-spacing: .08em;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .55rem .75rem;
+      width: 100%;
+      background: var(--surface);
+      color: var(--ink);
+    }
+    .mil-code-input:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+      border-color: var(--accent);
+    }
+    .mil-summary-wall {
+      margin-top: 1.4rem;
+      font-size: .88rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      line-height: 1.7;
+    }
+    .mil-summary-table {
+      width: 100%;
+      margin-top: 1.4rem;
+      border-top: 1px solid var(--border);
+      padding-top: .6rem;
+      border-collapse: collapse;
+      font-size: .9rem;
+    }
+    .mil-summary-table td { padding: .35rem 0; }
+    .mil-summary-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+    .mil-summary-table tr.mil-total td {
+      border-top: 1px solid var(--border);
+      font-weight: 700;
+      padding-top: .55rem;
+    }
+    .mil-summary-table .mil-discount td { color: var(--ok); }
+    .mil-apply-row { display: flex; gap: .6rem; align-items: flex-start; }
+    .mil-apply-row .mil-code-wrap { flex: 1; }
+    .mil-feedback { font-size: .78rem; margin-top: .35rem; min-height: 1.1rem; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Principle</span>
+    <h1>Miller's Law</h1>
+    <p class="definition">The average person can only keep 7 (plus or minus 2) items in their working memory.</p>
+    <p class="takeaway"><strong>The scenario:</strong> redeeming a gift card during checkout. The customer is reading a
+      16-character code off a physical card and typing it in — a pure working-memory task. Chunking is why phone numbers
+      and credit-card numbers are always written in groups. The “after” input is <em>live — try typing in it</em>.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      Sixteen characters in one unbroken run. To copy it from the card, the customer must hold far more than 7 items
+      in working memory — so they lose their place, mistype, and get a generic “invalid code” error. Below it, the
+      order summary crams five figures into one run-on sentence the eye can't verify at a glance.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">wraply.shop/checkout</span>
+      </div>
+      <div class="frame-body">
+        <div class="mil-checkout">
+          <h3 style="margin-bottom:1rem;">Checkout — payment</h3>
+          <div class="field">
+            <label for="mil-before-input">Gift card</label>
+            <div class="mil-apply-row">
+              <div class="mil-code-wrap">
+                <input class="mil-code-input" id="mil-before-input" type="text"
+                       value="GH7KP2M9XQ4WL8RT" maxlength="16"
+                       aria-label="Enter your 16-character code">
+                <div class="mil-feedback error-text">Invalid code. Please check and re-enter your 16-character code.</div>
+              </div>
+              <button class="btn">Apply</button>
+            </div>
+            <span class="hint">Enter your 16-character code exactly as printed.</span>
+          </div>
+          <div class="mil-summary-wall">
+            <strong style="color:var(--ink);">Order summary:</strong>
+            Your order contains 1 × Ceramic pour-over set (bone white) at $64.00 plus sales tax of $5.28 plus standard
+            shipping of $6.95 minus your seasonal discount of $9.60 (code AUTUMN15 applied at 15% of item subtotal)
+            for a total amount payable today of $66.63 charged to your selected payment method at dispatch.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      Same 16 characters — now grouped in fours as you type: <code>GH7K-P2M9-XQ4W-L8RT</code>. Four chunks of four sit
+      comfortably inside working memory, exactly like phone and card numbers. And the order summary became five
+      scannable lines, so each figure is one glance, not a parsing exercise. Try typing in the field.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">wraply.shop/checkout</span>
+      </div>
+      <div class="frame-body">
+        <div class="mil-checkout">
+          <h3 style="margin-bottom:1rem;">Checkout — payment</h3>
+          <div class="field">
+            <label for="mil-after-input">Gift card</label>
+            <div class="mil-apply-row">
+              <div class="mil-code-wrap">
+                <input class="mil-code-input" id="mil-after-input" type="text"
+                       value="GH7K-P2M9-XQ4W-L8RT" maxlength="19" spellcheck="false" autocomplete="off"
+                       aria-label="Gift card code, grouped automatically in fours"
+                       aria-describedby="mil-after-feedback">
+                <div class="mil-feedback" id="mil-after-feedback"></div>
+              </div>
+              <button class="btn btn-primary">Apply</button>
+            </div>
+            <span class="hint">Dashes are added for you — just type the characters.</span>
+          </div>
+          <table class="mil-summary-table" aria-label="Order summary">
+            <tbody>
+              <tr><td>Ceramic pour-over set (bone white)</td><td>$64.00</td></tr>
+              <tr><td>Sales tax</td><td>$5.28</td></tr>
+              <tr><td>Standard shipping</td><td>$6.95</td></tr>
+              <tr class="mil-discount"><td>Discount — AUTUMN15 (15%)</td><td>−$9.60</td></tr>
+              <tr class="mil-total"><td>Total due today</td><td>$66.63</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>One 16-character blur → four chunks of four (<code>GH7K-P2M9-XQ4W-L8RT</code>), auto-formatted as you type.</li>
+        <li>Chunking works <em>with</em> working memory, not against it — the same trick behind phone numbers and card numbers.</li>
+        <li>Grouping also makes verification possible: you can compare chunk-by-chunk against the physical card and spot exactly where a typo is.</li>
+        <li>The run-on order summary became a 5-line table — one fact per line, total visually anchored at the bottom.</li>
+        <li>Nothing was removed or simplified away; the same information was just organized into memorable units.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “There's a reason no one prints phone numbers as ten unbroken digits. Our gift-card field asks customers to
+        juggle sixteen characters at once, and every mistype is a support ticket or an abandoned cart at the moment
+        they're trying to give us money. Grouping the code in fours is a tiny frontend change that cuts entry errors
+        and makes the checkout feel effortless.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/millers-law/">Miller's Law — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+<script>
+  // AFTER: auto-chunk the gift-card code into groups of 4 as the user types.
+  (function () {
+    const input = document.getElementById('mil-after-input');
+    const feedback = document.getElementById('mil-after-feedback');
+
+    function format() {
+      const raw = input.value.replace(/[^a-z0-9]/gi, '').toUpperCase().slice(0, 16);
+      input.value = raw.replace(/(.{4})(?=.)/g, '$1-');
+      if (raw.length === 0) {
+        feedback.textContent = '';
+        feedback.className = 'mil-feedback';
+      } else if (raw.length === 16) {
+        feedback.textContent = '✓ 4 groups of 4 — code complete';
+        feedback.className = 'mil-feedback ok-text';
+      } else {
+        feedback.textContent = Math.floor(raw.length / 4) + ' of 4 groups entered';
+        feedback.className = 'mil-feedback';
+        feedback.style.color = 'var(--muted)';
+      }
+    }
+
+    input.addEventListener('input', format);
+    format();
+  })();
+</script>
+</body>
+</html>

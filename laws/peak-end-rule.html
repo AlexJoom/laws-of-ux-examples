@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peak-End Rule — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .peak- prefix) */
+    .peak-wrap { max-width: 34rem; margin: 0 auto; }
+
+    /* Experience timeline strip */
+    .peak-timeline {
+      display: flex; align-items: flex-end; gap: .15rem;
+      border: 1px dashed var(--border); border-radius: 10px;
+      padding: .8rem .9rem .6rem; margin-bottom: 1.2rem;
+      font-size: .68rem; color: var(--muted); overflow-x: auto;
+    }
+    .peak-tl-step { flex: 1; min-width: 3.2rem; text-align: center; }
+    .peak-tl-step .peak-tl-face { font-size: 1rem; display: block; }
+    .peak-tl-step .peak-tl-bar { height: .3rem; border-radius: 2px; background: #cdd2e0; margin: .25rem .2rem; }
+    .peak-tl-step.peak-tl-end .peak-tl-face { font-size: 1.5rem; }
+    .peak-tl-step.peak-tl-end .peak-tl-label { font-weight: 700; }
+    .peak-tl-step.peak-tl-end-bad .peak-tl-bar { background: var(--danger); height: .55rem; }
+    .peak-tl-step.peak-tl-end-good .peak-tl-bar { background: var(--ok); height: .55rem; }
+
+    /* BEFORE: cold confirmation */
+    .peak-cold { border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.3rem; font-size: .9rem; }
+    .peak-cold h3 { font-size: 1rem; margin-bottom: .6rem; }
+    .peak-cold p { margin-bottom: .6rem; }
+    .peak-cold .peak-warning { color: var(--warn); font-size: .82rem; }
+    .peak-crosssell {
+      margin-top: 1rem; border-radius: 10px; padding: .9rem 1.1rem;
+      background: linear-gradient(100deg, #3b2f75, #6d28d9); color: #fff; font-size: .85rem;
+      display: flex; justify-content: space-between; align-items: center; gap: .8rem; flex-wrap: wrap;
+    }
+    .peak-crosssell strong { display: block; font-size: .95rem; }
+    .peak-crosssell button {
+      font: inherit; font-size: .8rem; font-weight: 700; border: 0; border-radius: 8px;
+      padding: .45rem .9rem; background: #fbbf24; color: #3b2f75; cursor: pointer; flex: none;
+    }
+    .peak-survey {
+      margin-top: 1rem; border: 1px solid var(--border); border-radius: 10px;
+      padding: .9rem 1.1rem; font-size: .85rem; box-shadow: var(--shadow); position: relative;
+    }
+    .peak-survey .peak-survey-x { position: absolute; top: .4rem; right: .6rem; color: var(--muted); background: none; border: 0; cursor: pointer; font-size: .8rem; }
+    .peak-survey .peak-stars { font-size: 1.1rem; letter-spacing: .15rem; color: #cdd2e0; margin: .3rem 0; }
+
+    /* AFTER: warm ending */
+    .peak-warm { border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem 1.3rem; text-align: center; }
+    .peak-warm h3 { font-size: 1.25rem; animation: peak-pop .45s ease-out both; }
+    @keyframes peak-pop {
+      0% { transform: scale(.85); opacity: 0; }
+      70% { transform: scale(1.04); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .peak-warm .peak-sub { color: var(--muted); font-size: .9rem; margin-bottom: 1.2rem; }
+    .peak-next { text-align: left; margin: 0 auto 1rem; max-width: 24rem; }
+    .peak-next li { display: flex; gap: .7rem; align-items: baseline; padding: .45rem 0; font-size: .88rem; }
+    .peak-next .peak-num {
+      flex: none; width: 1.5rem; height: 1.5rem; border-radius: 50%;
+      background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: .78rem;
+      display: inline-flex; align-items: center; justify-content: center; align-self: center;
+    }
+    .peak-next .peak-when { color: var(--muted); font-size: .78rem; display: block; }
+    .peak-reassure { background: var(--ok-soft); color: var(--ok); font-weight: 600; font-size: .88rem; border-radius: 8px; padding: .6rem .9rem; display: inline-block; }
+    .peak-confetti { font-size: 1.1rem; letter-spacing: .3rem; animation: peak-float 2.2s ease-in-out infinite alternate; display: block; margin-bottom: .3rem; }
+    @keyframes peak-float { from { transform: translateY(0); } to { transform: translateY(-4px); } }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Principle</span>
+    <h1>Peak-End Rule</h1>
+    <p class="definition">People judge an experience largely based on how they felt at its peak and at its end, rather than the total sum or average of every moment of the experience.</p>
+    <p class="takeaway"><strong>The scenario:</strong> Maria just spent 10 minutes completing a loan application at
+      Meridian Bank. Every step before the final screen is identical in both versions. The little timeline strip in
+      each demo shows the whole journey — notice how one screen at the very end recolors the memory of all ten minutes.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      Ten minutes of diligent form-filling ends with a case number, a vague waiting period, a threat about rejection,
+      an ad, and a survey begging for stars. The final feeling is bureaucratic dread — and that feeling, not the
+      perfectly fine 10 minutes before it, becomes the memory of “applying at Meridian”.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">meridianbank.com/loans/apply/complete</span>
+      </div>
+      <div class="frame-body">
+        <div class="peak-wrap">
+          <div class="peak-timeline" aria-label="Experience timeline: ten smooth minutes ending on a sour note">
+            <div class="peak-tl-step"><span class="peak-tl-face">🙂</span><i class="peak-tl-bar"></i><span class="peak-tl-label">Start</span></div>
+            <div class="peak-tl-step"><span class="peak-tl-face">🙂</span><i class="peak-tl-bar"></i><span class="peak-tl-label">Details</span></div>
+            <div class="peak-tl-step"><span class="peak-tl-face">😐</span><i class="peak-tl-bar"></i><span class="peak-tl-label">Income</span></div>
+            <div class="peak-tl-step"><span class="peak-tl-face">🙂</span><i class="peak-tl-bar"></i><span class="peak-tl-label">Documents</span></div>
+            <div class="peak-tl-step"><span class="peak-tl-face">🙂</span><i class="peak-tl-bar"></i><span class="peak-tl-label">Review</span></div>
+            <div class="peak-tl-step peak-tl-end peak-tl-end-bad"><span class="peak-tl-face">😖</span><i class="peak-tl-bar"></i><span class="peak-tl-label">THE END</span></div>
+          </div>
+
+          <div class="peak-cold">
+            <h3>Submission recorded</h3>
+            <p>Application #4471-B has been recorded. Allow 5–10 business days for processing.</p>
+            <p class="peak-warning">Note: incomplete documentation will result in rejection. It is the applicant's
+              responsibility to monitor the status of the application.</p>
+          </div>
+
+          <div class="peak-crosssell">
+            <div>
+              <strong>Limited offer: Meridian Platinum Card</strong>
+              Get 1.5% cashback — apply before July 31!
+            </div>
+            <button>Apply now</button>
+          </div>
+
+          <div class="peak-survey" role="dialog" aria-label="Survey popup">
+            <button class="peak-survey-x" aria-label="Close survey">✕</button>
+            <strong>Quick survey!</strong> How would you rate your experience today?
+            <div class="peak-stars">★★★★★</div>
+            <button class="btn" style="font-size:.8rem;">Submit rating</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      Same application, same 5–10 day processing time — but the ending is now warm, personal, and concrete.
+      A named celebration, three friendly next steps with dates, and one reassuring commitment
+      (“we'll email you by Tuesday”). The last moment is the one Maria will retell.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">meridianbank.com/loans/apply/complete</span>
+      </div>
+      <div class="frame-body">
+        <div class="peak-wrap">
+          <div class="peak-timeline" aria-label="Experience timeline: ten smooth minutes ending on a high note">
+            <div class="peak-tl-step"><span class="peak-tl-face">🙂</span><i class="peak-tl-bar"></i><span class="peak-tl-label">Start</span></div>
+            <div class="peak-tl-step"><span class="peak-tl-face">🙂</span><i class="peak-tl-bar"></i><span class="peak-tl-label">Details</span></div>
+            <div class="peak-tl-step"><span class="peak-tl-face">😐</span><i class="peak-tl-bar"></i><span class="peak-tl-label">Income</span></div>
+            <div class="peak-tl-step"><span class="peak-tl-face">🙂</span><i class="peak-tl-bar"></i><span class="peak-tl-label">Documents</span></div>
+            <div class="peak-tl-step"><span class="peak-tl-face">🙂</span><i class="peak-tl-bar"></i><span class="peak-tl-label">Review</span></div>
+            <div class="peak-tl-step peak-tl-end peak-tl-end-good"><span class="peak-tl-face">🎉</span><i class="peak-tl-bar"></i><span class="peak-tl-label">THE END</span></div>
+          </div>
+
+          <div class="peak-warm">
+            <span class="peak-confetti" aria-hidden="true">🎊 ✨ 🎉 ✨ 🎊</span>
+            <h3>You're all set, Maria!</h3>
+            <p class="peak-sub">Your loan application is complete — nothing more to do today.</p>
+            <ol class="peak-next" style="list-style:none; padding:0;">
+              <li>
+                <span class="peak-num">1</span>
+                <span>We double-check your documents.
+                  <span class="peak-when">Today — already under way</span></span>
+              </li>
+              <li>
+                <span class="peak-num">2</span>
+                <span>A loan specialist reviews your application.
+                  <span class="peak-when">By Mon, Jul 20</span></span>
+              </li>
+              <li>
+                <span class="peak-num">3</span>
+                <span>You get our decision — no need to check back or call.
+                  <span class="peak-when">By Tue, Jul 21</span></span>
+              </li>
+            </ol>
+            <span class="peak-reassure">📬 We'll email you by Tue, Jul 21 — promise.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>The ending was redesigned as a moment: a personal greeting, celebration, and a brief animation instead of a case-number receipt.</li>
+        <li>Vague waiting (“5–10 business days”, “monitor your status”) became three concrete steps with dates and one clear promise: “we'll email you by Tue, Jul 21”.</li>
+        <li>The threat about rejection, the cross-sell banner, and the survey popup were removed from the final screen — nothing competes with the closing feeling.</li>
+        <li>The timeline strips make the mechanism visible: both journeys are 95% identical, but the last frame dominates the remembered whole.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “Customers don't average their experience — they remember the peak and the ending. We spent ten minutes of the
+        customer's effort earning goodwill and then spent the final screen on a warning, an ad, and a survey. Investing
+        one screen's worth of design in a warm, concrete ending changes how the entire application is remembered and
+        retold — and it costs nothing operationally, because the processing time behind it is unchanged.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/peak-end-rule/">Peak-End Rule — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

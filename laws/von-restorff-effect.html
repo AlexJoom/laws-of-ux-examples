@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Von Restorff Effect — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .von- prefix) */
+    .von-account { max-width: 38rem; }
+    .von-account h3 { margin-bottom: .2rem; }
+    .von-meta { font-size: .82rem; color: var(--muted); margin-bottom: 1.2rem; }
+
+    /* BEFORE: five identical gray buttons */
+    .von-actions-flat { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 1.6rem; }
+    .von-actions-flat button {
+      font: inherit; font-size: .84rem; font-weight: 600;
+      background: #e9ebf1; border: 1px solid #d6dae4; color: #3a4152;
+      border-radius: 8px; padding: .5rem .95rem; cursor: pointer;
+    }
+
+    /* AFTER: weighted actions + separated danger zone */
+    .von-actions-lean { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; margin-bottom: 1.6rem; }
+    .von-danger-zone {
+      margin-top: 1.6rem; border-top: 1px dashed var(--border); padding-top: 1rem;
+    }
+    .von-danger-zone h4 { font-size: .8rem; color: var(--muted); font-weight: 600; margin-bottom: .5rem; }
+    .von-btn-danger {
+      font: inherit; font-size: .84rem; font-weight: 600;
+      background: var(--surface); border: 1.5px solid var(--danger); color: var(--danger);
+      border-radius: 8px; padding: .5rem .95rem; cursor: pointer;
+    }
+    .von-btn-danger:hover { background: var(--danger-soft); }
+    .von-danger-note { font-size: .74rem; color: var(--muted); margin-top: .4rem; }
+
+    /* Mini pricing table */
+    .von-plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+    @media (max-width: 560px) { .von-plans { grid-template-columns: 1fr; } }
+    .von-plan {
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: .8rem; font-size: .78rem; position: relative;
+      background: var(--surface);
+    }
+    .von-plan h5 { margin: 0 0 .1rem; font-size: .84rem; }
+    .von-plan .von-price { font-size: 1.05rem; font-weight: 700; margin-bottom: .3rem; }
+    .von-plan p { margin: 0 0 .6rem; color: var(--muted); font-size: .72rem; }
+    .von-plan .btn { width: 100%; font-size: .76rem; padding: .35rem; }
+    .von-plan.von-current::after {
+      content: "Current"; position: absolute; top: .6rem; right: .6rem;
+      font-size: .6rem; font-weight: 700; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 999px; padding: .05rem .45rem;
+    }
+    .von-plan.von-reco { border: 2px solid var(--accent); box-shadow: var(--shadow); }
+    .von-plan .von-ribbon {
+      position: absolute; top: -.65rem; left: 50%; transform: translateX(-50%);
+      background: var(--accent); color: #fff; font-size: .6rem; font-weight: 700;
+      padding: .08rem .55rem; border-radius: 999px; white-space: nowrap;
+    }
+    .von-section-title { font-size: .85rem; font-weight: 700; margin: 1.4rem 0 .6rem; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Principle</span>
+    <h1>Von Restorff Effect</h1>
+    <p class="definition">When multiple similar objects are present, the one that differs from the rest is most likely to be remembered.</p>
+    <p class="takeaway"><strong>The scenario:</strong> the plan-management screen of Streamora, a video-streaming
+      subscription. This screen type is where contrast matters most — and, honestly, where dark patterns live: the
+      same isolation effect that highlights a recommended plan can be abused to camouflage “cancel” or spotlight
+      “upgrade”. Used ethically, it makes both the common action <em>and</em> the dangerous one unmistakable.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      Five identical gray buttons — and the fifth one deletes the account forever. Nothing distinguishes an
+      irreversible destructive action from “Billing history”. That's not just bad memorability; it's the kind of
+      indistinct destructive control that ends in support escalations, chargebacks, and lawsuits. Below, the three
+      pricing cards are equally uniform, so nothing about the page is recalled a minute later.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">streamora.tv/account/plan</span>
+      </div>
+      <div class="frame-body">
+        <div class="von-account">
+          <h3>Manage your subscription</h3>
+          <p class="von-meta">Signed in as dana@example.com · Member since 2023 · Next billing date: Aug 2, 2026</p>
+          <div class="von-actions-flat">
+            <button>Change plan</button>
+            <button>Update card</button>
+            <button>Billing history</button>
+            <button>Pause subscription</button>
+            <button>Delete account forever</button>
+          </div>
+          <div class="von-section-title">Your plan options</div>
+          <div class="von-plans">
+            <div class="von-plan">
+              <h5>Basic</h5><div class="von-price">$6.99</div>
+              <p>720p · 1 screen · with ads</p>
+              <button class="btn">Select</button>
+            </div>
+            <div class="von-plan">
+              <h5>Standard</h5><div class="von-price">$12.99</div>
+              <p>1080p · 2 screens · ad-free</p>
+              <button class="btn">Select</button>
+            </div>
+            <div class="von-plan">
+              <h5>Premium</h5><div class="von-price">$18.99</div>
+              <p>4K HDR · 4 screens · downloads</p>
+              <button class="btn">Select</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      One accent, in each direction. “Change plan” — the action most visitors came for — is the single filled primary
+      button. “Delete account” is separated into its own zone and outlined in red with a warning icon: distinct in the
+      <em>opposite</em> direction, so it can never be clicked on autopilot yet is never hidden. In the pricing table,
+      exactly one card (the recommended Standard plan) stands out.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">streamora.tv/account/plan</span>
+      </div>
+      <div class="frame-body">
+        <div class="von-account">
+          <h3>Manage your subscription</h3>
+          <p class="von-meta">Signed in as dana@example.com · Member since 2023 · Next billing date: Aug 2, 2026</p>
+          <div class="von-actions-lean">
+            <button class="btn btn-primary">Change plan</button>
+            <button class="btn">Update card</button>
+            <button class="btn">Billing history</button>
+            <button class="btn">Pause subscription</button>
+          </div>
+          <div class="von-section-title">Your plan options</div>
+          <div class="von-plans">
+            <div class="von-plan von-current">
+              <h5>Basic</h5><div class="von-price">$6.99</div>
+              <p>720p · 1 screen · with ads</p>
+              <button class="btn">Keep plan</button>
+            </div>
+            <div class="von-plan von-reco">
+              <span class="von-ribbon">Recommended for you</span>
+              <h5>Standard</h5><div class="von-price">$12.99</div>
+              <p>1080p · 2 screens · ad-free</p>
+              <button class="btn btn-primary">Switch to Standard</button>
+            </div>
+            <div class="von-plan">
+              <h5>Premium</h5><div class="von-price">$18.99</div>
+              <p>4K HDR · 4 screens · downloads</p>
+              <button class="btn">Select</button>
+            </div>
+          </div>
+          <div class="von-danger-zone">
+            <h4>Danger zone</h4>
+            <button class="von-btn-danger">⚠️ Delete account…</button>
+            <p class="von-danger-note">Permanently removes your profile, watch history, and downloads. We'll ask you to confirm.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>Five identical buttons → one filled primary (“Change plan”), three quiet secondaries, and the destructive action moved to a separated, red-outlined danger zone with a warning icon.</li>
+        <li>Distinctiveness works in both directions: the accent color says “this is the usual path”, the red outline says “stop and read before clicking”.</li>
+        <li>Exactly one pricing card is highlighted — the recommended plan — so the choice most people should make is the one they remember.</li>
+        <li><strong>The caveat:</strong> if everything is highlighted, nothing is. One emphasis per screen, or the isolation effect cancels itself out.</li>
+        <li><strong>The ethics:</strong> the same effect powers dark patterns — a camouflaged cancel link or a screaming upgrade button. Making “Delete account” <em>clearly visible but clearly dangerous</em> is the honest use: distinct, never hidden.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “Today, deleting an account forever looks exactly like checking a billing statement — that's a wrong-click
+        lawsuit waiting to happen, and regulators are actively fining companies over confusing cancellation flows.
+        By giving the screen one clear primary action and styling deletion as visibly dangerous rather than hidden,
+        we reduce accidental churn and support costs while staying on the right side of dark-pattern rules.
+        Contrast is a budget: spend it on one thing per screen and it works; spend it everywhere and it's gone.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/von-restorff-effect/">Von Restorff Effect — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hick's Law — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .hicks- prefix) */
+    .hicks-plans { display: grid; gap: .8rem; }
+    .hicks-plans.many { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+    .hicks-plans.few { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); max-width: 40rem; margin: 0 auto; }
+    .hicks-plan {
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: .9rem; font-size: .8rem; position: relative;
+    }
+    .hicks-plan h4 { font-size: .9rem; margin-bottom: .2rem; }
+    .hicks-plan .price { font-size: 1.15rem; font-weight: 700; margin-bottom: .4rem; }
+    .hicks-plan ul { margin: 0 0 .8rem; padding-left: 1rem; color: var(--muted); }
+    .hicks-plan li { margin-bottom: .15rem; }
+    .hicks-plan .btn { width: 100%; font-size: .8rem; padding: .4rem; }
+    .hicks-plan.recommended { border: 2px solid var(--accent); box-shadow: var(--shadow); }
+    .hicks-plan .ribbon {
+      position: absolute; top: -0.7rem; left: 50%; transform: translateX(-50%);
+      background: var(--accent); color: #fff; font-size: .65rem; font-weight: 700;
+      padding: .1rem .6rem; border-radius: 999px; white-space: nowrap;
+    }
+    .hicks-extras { margin-top: 1.2rem; border-top: 1px dashed var(--border); padding-top: 1rem; font-size: .85rem; }
+    .hicks-extras .row { display: flex; flex-wrap: wrap; gap: .8rem 1.4rem; color: var(--muted); }
+    .hicks-compare-link { text-align: center; margin-top: 1.2rem; font-size: .85rem; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Heuristic</span>
+    <h1>Hick's Law</h1>
+    <p class="definition">The time it takes to make a decision increases with the number and complexity of choices.</p>
+    <p class="takeaway"><strong>The scenario:</strong> a SaaS pricing page. Every extra plan, toggle, and add-on the visitor
+      must evaluate adds decision time — and past a point, they defer the decision entirely and leave.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      Six plans, ten feature bullets each, billing toggles, and a wall of add-ons. Visitors must compare
+      ~60 data points before they can act. Most will postpone the decision — “I'll come back later” — and never do.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">cloudmetric.io/pricing</span>
+      </div>
+      <div class="frame-body">
+        <h3 style="text-align:center; margin-bottom:.3rem;">Choose your plan</h3>
+        <p style="text-align:center; font-size:.85rem; color:var(--muted);">
+          Monthly / Annual / Biennial / Usage-based / Per-seat / Volume-tiered
+        </p>
+        <div class="hicks-plans many">
+          <div class="hicks-plan">
+            <h4>Nano</h4><div class="price">$5</div>
+            <ul><li>1 project</li><li>500 events</li><li>1 seat</li><li>Email support</li><li>7-day history</li></ul>
+            <button class="btn">Select</button>
+          </div>
+          <div class="hicks-plan">
+            <h4>Micro</h4><div class="price">$12</div>
+            <ul><li>3 projects</li><li>2k events</li><li>2 seats</li><li>Email support</li><li>14-day history</li></ul>
+            <button class="btn">Select</button>
+          </div>
+          <div class="hicks-plan">
+            <h4>Starter</h4><div class="price">$29</div>
+            <ul><li>5 projects</li><li>10k events</li><li>3 seats</li><li>Chat support</li><li>30-day history</li></ul>
+            <button class="btn">Select</button>
+          </div>
+          <div class="hicks-plan">
+            <h4>Growth</h4><div class="price">$59</div>
+            <ul><li>15 projects</li><li>50k events</li><li>10 seats</li><li>Chat support</li><li>90-day history</li></ul>
+            <button class="btn">Select</button>
+          </div>
+          <div class="hicks-plan">
+            <h4>Scale</h4><div class="price">$119</div>
+            <ul><li>40 projects</li><li>250k events</li><li>25 seats</li><li>Priority support</li><li>1-year history</li></ul>
+            <button class="btn">Select</button>
+          </div>
+          <div class="hicks-plan">
+            <h4>Enterprise</h4><div class="price">$—</div>
+            <ul><li>Unlimited</li><li>Custom events</li><li>SSO &amp; SLA</li><li>Dedicated CSM</li><li>Custom history</li></ul>
+            <button class="btn">Contact us</button>
+          </div>
+        </div>
+        <div class="hicks-extras">
+          <strong style="font-size:.85rem;">Customize with add-ons:</strong>
+          <div class="row">
+            <label><input type="checkbox"> Extra seats (+$4/seat)</label>
+            <label><input type="checkbox"> Audit log (+$15)</label>
+            <label><input type="checkbox"> Data export (+$9)</label>
+            <label><input type="checkbox"> White-label (+$49)</label>
+            <label><input type="checkbox"> API boost (+$19)</label>
+            <label><input type="checkbox"> Premium SLA (+$99)</label>
+            <label><input type="checkbox"> Sandbox env (+$12)</label>
+            <label><input type="checkbox"> SSO (+$25)</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      Three plans, four bullets each, one clearly recommended default. The long tail of options still exists —
+      it's just moved behind “Compare all features” for the minority who need it. The common case decides in seconds.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">cloudmetric.io/pricing</span>
+      </div>
+      <div class="frame-body">
+        <h3 style="text-align:center; margin-bottom:1.4rem;">Simple pricing that grows with you</h3>
+        <div class="hicks-plans few">
+          <div class="hicks-plan">
+            <h4>Starter</h4><div class="price">$29<span style="font-size:.7rem; font-weight:400;">/mo</span></div>
+            <ul><li>5 projects</li><li>10k events / mo</li><li>3 seats</li><li>30-day history</li></ul>
+            <button class="btn">Start free trial</button>
+          </div>
+          <div class="hicks-plan recommended">
+            <span class="ribbon">Most popular</span>
+            <h4>Growth</h4><div class="price">$59<span style="font-size:.7rem; font-weight:400;">/mo</span></div>
+            <ul><li>15 projects</li><li>50k events / mo</li><li>10 seats</li><li>90-day history</li></ul>
+            <button class="btn btn-primary">Start free trial</button>
+          </div>
+          <div class="hicks-plan">
+            <h4>Enterprise</h4><div class="price" style="font-size:.95rem; padding-top:.25rem;">Let's talk</div>
+            <ul><li>Unlimited projects</li><li>Custom volume</li><li>SSO &amp; SLA</li><li>Dedicated support</li></ul>
+            <button class="btn">Contact sales</button>
+          </div>
+        </div>
+        <p class="hicks-compare-link"><a href="#" onclick="return false;">Compare all features →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>6 plans → 3 plans; ~60 comparison points → ~12.</li>
+        <li>A recommended default (“Most popular”) gives undecided visitors a safe choice.</li>
+        <li>Add-ons and edge-case options moved behind a “Compare all features” link — progressive disclosure, not deletion.</li>
+        <li>One primary action per screen: the highlighted trial button.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “Every option we show is a question we're asking the customer to answer before they can pay us.
+        Cutting the visible choices from six to three doesn't remove functionality — it removes hesitation.
+        Fewer, clearer choices means faster decisions and fewer abandoned pricing pages.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/hicks-law/">Hick's Law — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

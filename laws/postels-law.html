@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Postel's Law — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .pos- prefix) */
+    .pos-checkout { max-width: 26rem; margin: 0 auto; }
+    .pos-checkout h3 { margin-bottom: .2rem; }
+    .pos-sub { font-size: .85rem; color: var(--muted); margin-bottom: 1.3rem; }
+    .pos-summary {
+      display: flex; justify-content: space-between; font-size: .85rem; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 10px; padding: .6rem .9rem; margin-bottom: 1.2rem;
+    }
+    .pos-summary b { color: var(--ink); }
+    .pos-msg { font-size: .82rem; min-height: 1.3rem; margin: -.5rem 0 1rem; }
+    .pos-msg.err { color: var(--danger); font-weight: 700; }
+    .pos-msg.ok { color: var(--ok); }
+    .pos-input-err { border-color: var(--danger) !important; background: var(--danger-soft) !important; }
+    .pos-input-ok { border-color: var(--ok) !important; }
+    .pos-bad-rules { font-size: .72rem; color: var(--muted); margin-top: -.4rem; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Principle</span>
+    <h1>Postel's Law</h1>
+    <p class="definition">Be liberal in what you accept, and conservative in what you send.</p>
+    <p class="takeaway"><strong>The scenario:</strong> the phone-number field on the Fernvale Goods checkout. Both versions
+      below are <em>live — try them</em>. Each is pre-filled with a perfectly normal way people write their number:
+      “+30 210 555 0199”. Click away from the field (or press the button) and watch how each version treats it.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      The form demands exactly 10 digits — no spaces, no dashes, no “+30”. A customer pasting their number the way it's
+      written on their own business card gets shouted at in red caps. The system pushed its parsing job onto the human.
+      Try clicking into the field and then away, or press “Continue to payment”.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">fernvalegoods.com/checkout/delivery</span>
+      </div>
+      <div class="frame-body">
+        <div class="pos-checkout">
+          <h3>Delivery details</h3>
+          <p class="pos-sub">Step 2 of 3 — we'll text you when the courier is nearby.</p>
+          <div class="pos-summary"><span>Linen throw blanket × 1</span><b>€64.00</b></div>
+          <div class="field">
+            <label for="pos-before-phone">Mobile phone</label>
+            <input id="pos-before-phone" type="tel" value="+30 210 555 0199">
+            <span class="pos-bad-rules">Format: 10 digits, no spaces, no symbols, no country code.</span>
+          </div>
+          <p class="pos-msg" id="pos-before-msg" aria-live="polite"></p>
+          <button class="btn btn-primary" type="button" id="pos-before-btn">Continue to payment</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      Same field, same pre-filled number — but now the software is liberal in what it accepts: spaces, dashes, brackets,
+      and country codes are all fine. It quietly normalizes the input, then is conservative in what it sends onward — a
+      single canonical “+302105550199”. Try “210-555-0199” or “(210) 5550199” too.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">fernvalegoods.com/checkout/delivery</span>
+      </div>
+      <div class="frame-body">
+        <div class="pos-checkout">
+          <h3>Delivery details</h3>
+          <p class="pos-sub">Step 2 of 3 — we'll text you when the courier is nearby.</p>
+          <div class="pos-summary"><span>Linen throw blanket × 1</span><b>€64.00</b></div>
+          <div class="field">
+            <label for="pos-after-phone">Mobile phone</label>
+            <input id="pos-after-phone" type="tel" value="+30 210 555 0199">
+            <span class="hint">Any format works — we'll tidy it up.</span>
+          </div>
+          <p class="pos-msg" id="pos-after-msg" aria-live="polite"></p>
+          <button class="btn btn-primary" type="button" id="pos-after-btn">Continue to payment</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li><em>Liberal in:</em> the field now accepts every common way people write a phone number — spaces, dashes, brackets, “+30”.</li>
+        <li><em>Conservative out:</em> whatever comes in, one canonical E.164-style number (+302105550199) is what gets stored and sent to the SMS gateway.</li>
+        <li>The harsh red “INVALID FORMAT” error became a calm confirmation of what we understood.</li>
+        <li>Normalizing punctuation is one line of code for us; retyping a number to satisfy a regex was friction for every customer.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “Every ‘invalid format’ error at checkout is us rejecting a paying customer over punctuation. People copy their
+        phone number from their contacts card, with spaces and a country code — that's not bad data, it's normal data.
+        By accepting any reasonable format and normalizing it ourselves, we keep our systems receiving one clean,
+        consistent value while removing a proven abandonment point from the highest-value page we own.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/postels-law/">Postel's Law — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+<script>
+  // ---------- BEFORE: strict — reject anything that isn't exactly 10 bare digits.
+  (function () {
+    const input = document.getElementById('pos-before-phone');
+    const msg = document.getElementById('pos-before-msg');
+
+    function validateStrict() {
+      if (/^\d{10}$/.test(input.value)) {
+        input.classList.remove('pos-input-err');
+        msg.className = 'pos-msg ok';
+        msg.textContent = 'Accepted.';
+      } else {
+        input.classList.add('pos-input-err');
+        msg.className = 'pos-msg err';
+        msg.textContent = 'INVALID FORMAT. Digits only, no spaces or symbols.';
+      }
+    }
+
+    input.addEventListener('blur', validateStrict);
+    document.getElementById('pos-before-btn').addEventListener('click', validateStrict);
+  })();
+
+  // ---------- AFTER: liberal in, conservative out.
+  (function () {
+    const input = document.getElementById('pos-after-phone');
+    const msg = document.getElementById('pos-after-msg');
+
+    // Strip everything but digits; keep a leading "+" if present.
+    function normalize(raw) {
+      const plus = raw.trim().startsWith('+') ? '+' : '';
+      return plus + raw.replace(/\D/g, '');
+    }
+
+    // Display version: group digits for readability.
+    function pretty(canonical) {
+      const m = canonical.match(/^(\+\d{2})(\d{3})(\d{3})(\d+)$/) ||
+                canonical.match(/^(\d{3})(\d{3})(\d+)$/);
+      return m ? m.slice(1).join(' ') : canonical;
+    }
+
+    function accept() {
+      const canonical = normalize(input.value);
+      if (canonical.replace('+', '').length >= 10) {
+        input.value = pretty(canonical);
+        input.classList.remove('pos-input-err');
+        input.classList.add('pos-input-ok');
+        msg.className = 'pos-msg ok';
+        msg.textContent = '✓ We’ll use ' + canonical;
+      } else {
+        input.classList.remove('pos-input-ok');
+        msg.className = 'pos-msg err';
+        msg.textContent = 'That looks too short — could you double-check it?';
+      }
+    }
+
+    input.addEventListener('blur', accept);
+    document.getElementById('pos-after-btn').addEventListener('click', accept);
+  })();
+</script>
+</body>
+</html>

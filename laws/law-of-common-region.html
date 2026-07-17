@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Law of Common Region — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .reg- prefix) */
+    .reg-phone {
+      max-width: 23rem; margin: 0 auto;
+      border: 1px solid var(--border); border-radius: 20px;
+      background: #fbfcfe; padding: 1rem 1.1rem 1.2rem;
+    }
+    .reg-phone h4 { font-size: 1rem; margin-bottom: .2rem; }
+    .reg-phone .reg-sub { font-size: .78rem; color: var(--muted); margin-bottom: .8rem; }
+    .reg-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: .8rem; padding: .55rem 0; font-size: .88rem;
+    }
+    /* BEFORE: one flat undifferentiated list */
+    .reg-flat .reg-row { border-bottom: 1px solid #eef0f5; }
+    .reg-flat .reg-row:last-child { border-bottom: 0; }
+    /* AFTER: bounded regions */
+    .reg-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: .2rem .9rem .35rem; margin-bottom: .85rem;
+    }
+    .reg-card:last-child { margin-bottom: 0; }
+    .reg-card h5 {
+      font-size: .68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--muted); margin: .65rem 0 .1rem;
+    }
+    /* Decorative toggle switch */
+    .reg-switch {
+      flex-shrink: 0; width: 2.15rem; height: 1.25rem; border-radius: 999px;
+      background: #cdd2e0; position: relative; display: inline-block;
+    }
+    .reg-switch::after {
+      content: ""; position: absolute; top: 2px; left: 2px;
+      width: calc(1.25rem - 4px); height: calc(1.25rem - 4px);
+      border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(16,24,40,.25);
+    }
+    .reg-switch.on { background: var(--accent); }
+    .reg-switch.on::after { left: auto; right: 2px; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Gestalt</span>
+    <h1>Law of Common Region</h1>
+    <p class="definition">Elements tend to be perceived into groups if they are sharing an area with a clearly defined boundary.</p>
+    <p class="takeaway"><strong>The scenario:</strong> a mobile app's notification settings — twelve toggles.
+      Both versions contain the exact same twelve settings with the exact same on/off states; only the
+      <em>visual boundaries</em> change. Watch how four bordered cards turn an unscannable wall into four
+      quick questions.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      Twelve toggles in one flat list, in no particular order. To find “turn off marketing emails but keep
+      security alerts” a user must read every single row, because nothing tells the eye where email ends and
+      push begins. Most people give up and either mute everything or nothing.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">taskhub.app/settings/notifications</span>
+      </div>
+      <div class="frame-body">
+        <div class="reg-phone reg-flat">
+          <h4>Notifications</h4>
+          <p class="reg-sub">Manage how TaskHub notifies you.</p>
+          <div class="reg-row">Email digest <span class="reg-switch on" aria-hidden="true"></span></div>
+          <div class="reg-row">Push for mentions <span class="reg-switch on" aria-hidden="true"></span></div>
+          <div class="reg-row">SMS alerts <span class="reg-switch" aria-hidden="true"></span></div>
+          <div class="reg-row">Marketing emails <span class="reg-switch" aria-hidden="true"></span></div>
+          <div class="reg-row">Weekly report <span class="reg-switch on" aria-hidden="true"></span></div>
+          <div class="reg-row">Sound <span class="reg-switch on" aria-hidden="true"></span></div>
+          <div class="reg-row">Badge count <span class="reg-switch on" aria-hidden="true"></span></div>
+          <div class="reg-row">Security alerts <span class="reg-switch on" aria-hidden="true"></span></div>
+          <div class="reg-row">Product updates <span class="reg-switch" aria-hidden="true"></span></div>
+          <div class="reg-row">Reminders <span class="reg-switch on" aria-hidden="true"></span></div>
+          <div class="reg-row">Team activity <span class="reg-switch" aria-hidden="true"></span></div>
+          <div class="reg-row">Quiet hours <span class="reg-switch" aria-hidden="true"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      The same twelve toggles, same states — now enclosed in four bordered cards with short headers.
+      Each card is a clearly bounded region, so the eye parses “four groups” before reading a single label.
+      Finding any setting is now a two-step scan: pick the card, then pick the row.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">taskhub.app/settings/notifications</span>
+      </div>
+      <div class="frame-body">
+        <div class="reg-phone">
+          <h4>Notifications</h4>
+          <p class="reg-sub">Manage how TaskHub notifies you.</p>
+          <div class="reg-card">
+            <h5>Email</h5>
+            <div class="reg-row">Email digest <span class="reg-switch on" aria-hidden="true"></span></div>
+            <div class="reg-row">Weekly report <span class="reg-switch on" aria-hidden="true"></span></div>
+            <div class="reg-row">Marketing emails <span class="reg-switch" aria-hidden="true"></span></div>
+            <div class="reg-row">Product updates <span class="reg-switch" aria-hidden="true"></span></div>
+          </div>
+          <div class="reg-card">
+            <h5>Push</h5>
+            <div class="reg-row">Push for mentions <span class="reg-switch on" aria-hidden="true"></span></div>
+            <div class="reg-row">Reminders <span class="reg-switch on" aria-hidden="true"></span></div>
+            <div class="reg-row">Team activity <span class="reg-switch" aria-hidden="true"></span></div>
+            <div class="reg-row">Badge count <span class="reg-switch on" aria-hidden="true"></span></div>
+          </div>
+          <div class="reg-card">
+            <h5>SMS &amp; Sound</h5>
+            <div class="reg-row">SMS alerts <span class="reg-switch" aria-hidden="true"></span></div>
+            <div class="reg-row">Sound <span class="reg-switch on" aria-hidden="true"></span></div>
+            <div class="reg-row">Quiet hours <span class="reg-switch" aria-hidden="true"></span></div>
+          </div>
+          <div class="reg-card">
+            <h5>Security</h5>
+            <div class="reg-row">Security alerts <span class="reg-switch on" aria-hidden="true"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>Nothing was added or removed — the same 12 settings with the same states appear in both versions.</li>
+        <li>Four bordered cards create four common regions: Email, Push, SMS &amp; Sound, Security.</li>
+        <li>Short uppercase card headers let users skip whole groups they don't care about.</li>
+        <li>Related settings that were scattered through the flat list (e.g. all email options) now sit inside one boundary.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “A boundary is the cheapest information architecture there is. Drawing four boxes around the same
+        twelve settings means users scan four labels instead of reading twelve rows — settings screens stop
+        generating ‘how do I turn this off?’ support tickets, and people who can control their notifications
+        precisely are far less likely to disable them entirely.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/law-of-common-region/">Law of Common Region — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

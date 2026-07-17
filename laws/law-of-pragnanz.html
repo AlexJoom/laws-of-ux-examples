@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Law of Prägnanz — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .prag- prefix) */
+
+    /* ---------- BEFORE: decoration competing with data ---------- */
+    .prag-b-wrap {
+      background: linear-gradient(135deg, #eef2ff 0%, #fdf2f8 55%, #fefce8 100%);
+      border: 3px double #b6a4e8; border-radius: 14px; padding: 1.1rem;
+    }
+    .prag-b-head { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .prag-b-head h3 {
+      margin: 0; font-size: 1.15rem;
+      background: linear-gradient(90deg, #7c3aed, #db2777); -webkit-background-clip: text;
+      background-clip: text; color: transparent;
+    }
+    .prag-b-badge {
+      font-size: .6rem; font-weight: 700; border-radius: 999px; padding: .12rem .5rem;
+      background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5;
+    }
+    .prag-b-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .8rem; margin-bottom: 1.2rem; }
+    .prag-b-metric { border-radius: 10px; padding: .7rem .8rem; box-shadow: 0 6px 14px rgba(124, 58, 237, .18); }
+    .prag-b-metric .lbl { font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; }
+    .prag-b-m1 {
+      background: linear-gradient(160deg, #fff7e0, #ffe9b8); border: 2px solid #e3b94d;
+      font-family: Georgia, "Times New Roman", serif; font-style: italic; color: #8a6116;
+    }
+    .prag-b-m1 .val { font-size: 1.5rem; font-weight: 700; }
+    .prag-b-m2 {
+      background: #101828; border: 2px dashed #34d399; color: #34d399;
+      font-family: "Courier New", monospace;
+    }
+    .prag-b-m2 .val { font-size: 1.35rem; font-weight: 700; }
+    .prag-b-m3 {
+      background: linear-gradient(160deg, #fde8e8, #fbd0d0); border: 2px solid #ef4444;
+      color: #991b1b; text-transform: uppercase; letter-spacing: .04em;
+    }
+    .prag-b-m3 .val { font-size: 1.5rem; font-weight: 800; }
+    .prag-b-metric .sub { font-size: .68rem; opacity: .85; }
+
+    .prag-b-chart { display: flex; gap: 1.4rem; align-items: center; flex-wrap: wrap; }
+    .prag-b-pie3d { width: 11rem; flex-shrink: 0; }
+    .prag-b-pie {
+      width: 11rem; height: 11rem; border-radius: 50%;
+      transform: scaleY(.62) rotate(-8deg);
+      background: conic-gradient(
+        #7c3aed 0% 32%, #db2777 32% 56%, #f59e0b 56% 74%, #10b981 74% 86%,
+        #3b82f6 86% 91%, #ef4444 91% 94%, #a3e635 94% 96.5%, #14b8a6 96.5% 98.5%, #64748b 98.5% 100%);
+      box-shadow: 0 10px 0 #c9b8ee, 0 16px 22px rgba(76, 29, 149, .45), inset 0 -8px 18px rgba(0,0,0,.25);
+    }
+    .prag-b-pie-title { text-align: center; font-size: .72rem; font-weight: 700; margin-top: 1.4rem; color: #6d28d9; }
+    .prag-b-legend { list-style: none; margin: 0; padding: 0; font-size: .62rem; columns: 2; column-gap: 1.2rem; color: #3f3f56; }
+    .prag-b-legend li { display: flex; align-items: center; gap: .3rem; margin-bottom: .3rem; break-inside: avoid; }
+    .prag-b-legend i { width: .55rem; height: .55rem; border-radius: 2px; flex-shrink: 0; }
+
+    /* ---------- AFTER: the simplest form of the same data ---------- */
+    .prag-a-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.8rem; }
+    .prag-a-tile { border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; background: var(--surface); }
+    .prag-a-tile .lbl { font-size: .75rem; color: var(--muted); margin-bottom: .15rem; }
+    .prag-a-tile .val { font-size: 1.7rem; font-weight: 700; letter-spacing: -.02em; }
+    .prag-a-tile .sub { font-size: .72rem; }
+    .prag-a-up { color: var(--ok); }
+    .prag-a-down { color: var(--ok); } /* churn going down is good */
+    .prag-a-chart h4 { font-size: .9rem; margin-bottom: .8rem; }
+    .prag-a-bar-row { display: grid; grid-template-columns: 8.5rem 1fr 2.6rem; align-items: center; gap: .7rem; margin-bottom: .55rem; font-size: .8rem; }
+    .prag-a-bar-row .name { color: var(--ink); }
+    .prag-a-bar-track { background: #eef0f6; border-radius: 4px; height: .9rem; }
+    .prag-a-bar { background: var(--accent); border-radius: 4px; height: 100%; }
+    .prag-a-bar-row .num { color: var(--muted); text-align: right; }
+    .prag-a-note { font-size: .75rem; color: var(--muted); margin-top: .8rem; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Gestalt</span>
+    <h1>Law of Prägnanz</h1>
+    <p class="definition">People will perceive and interpret ambiguous or complex images as the simplest form possible, because it is the interpretation that requires the least cognitive effort of us.</p>
+    <p class="takeaway"><strong>The scenario:</strong> a monthly KPI dashboard for a small coffee-roasting business.
+      The numbers are identical in both versions — revenue, new customers, churn, and the same product-sales
+      breakdown. Only the <em>presentation</em> changes: one version drowns the data in decoration, the other
+      is already the simple shape your brain would reduce it to anyway.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      A gradient-on-gradient banner, three metrics in three competing typefaces, badges and icons fighting for
+      attention, and a “3D” pie whose nine tilted slices are impossible to compare (is Gift Box bigger than
+      Cold Brew? You genuinely can't tell from the chart). Viewers squint, mentally strip away the decoration,
+      and walk off with a vague — often wrong — simplified impression.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">app.beanledger.io/dashboard</span>
+      </div>
+      <div class="frame-body">
+        <div class="prag-b-wrap">
+          <div class="prag-b-head">
+            <h3>✨ June Performance Command Center ✨</h3>
+            <span class="prag-b-badge">🔥 LIVE</span>
+            <span class="prag-b-badge">📈 TRENDING</span>
+            <span class="prag-b-badge">⭐ PRO</span>
+          </div>
+          <div class="prag-b-metrics">
+            <div class="prag-b-metric prag-b-m1">
+              <div class="lbl">💰 Revenue</div>
+              <div class="val">€48,250</div>
+              <div class="sub">▲ +12% vs May</div>
+            </div>
+            <div class="prag-b-metric prag-b-m2">
+              <div class="lbl">&gt;_ New customers</div>
+              <div class="val">312</div>
+              <div class="sub">▲ +8% vs May</div>
+            </div>
+            <div class="prag-b-metric prag-b-m3">
+              <div class="lbl">⚠️ Churn</div>
+              <div class="val">2.4%</div>
+              <div class="sub">▼ −0.3 pts vs May</div>
+            </div>
+          </div>
+          <div class="prag-b-chart">
+            <div class="prag-b-pie3d">
+              <div class="prag-b-pie" role="img" aria-label="3D pie chart of sales by product"></div>
+              <div class="prag-b-pie-title">🍩 SALES MIX BY PRODUCT 🍩</div>
+            </div>
+            <ul class="prag-b-legend">
+              <li><i style="background:#7c3aed;"></i> Espresso Blend — 32%</li>
+              <li><i style="background:#db2777;"></i> Filter Roast — 24%</li>
+              <li><i style="background:#f59e0b;"></i> Cold Brew Kit — 18%</li>
+              <li><i style="background:#10b981;"></i> Gift Box — 12%</li>
+              <li><i style="background:#3b82f6;"></i> Decaf Blend — 5%</li>
+              <li><i style="background:#ef4444;"></i> Ceramic Mugs — 3%</li>
+              <li><i style="background:#a3e635;"></i> Hand Grinder — 2.5%</li>
+              <li><i style="background:#14b8a6;"></i> Subscription Add-on — 2%</li>
+              <li><i style="background:#64748b;"></i> Stickers — 1.5%</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      Same numbers, zero decoration. Three plain stat tiles answer the three questions an owner actually asks,
+      and the nine-slice pie became four comparable bars for the products that make up 86% of sales — the five
+      small items are summarised in one honest line instead of five unreadable slivers. Nothing left to
+      mentally simplify: the simple form <em>is</em> the design.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">app.beanledger.io/dashboard</span>
+      </div>
+      <div class="frame-body">
+        <h3 style="font-size:1.1rem; margin-bottom:1.2rem;">June overview</h3>
+        <div class="prag-a-tiles">
+          <div class="prag-a-tile">
+            <div class="lbl">Revenue</div>
+            <div class="val">€48,250</div>
+            <div class="sub prag-a-up">▲ +12% vs May</div>
+          </div>
+          <div class="prag-a-tile">
+            <div class="lbl">New customers</div>
+            <div class="val">312</div>
+            <div class="sub prag-a-up">▲ +8% vs May</div>
+          </div>
+          <div class="prag-a-tile">
+            <div class="lbl">Churn</div>
+            <div class="val">2.4%</div>
+            <div class="sub prag-a-down">▼ −0.3 pts vs May</div>
+          </div>
+        </div>
+        <div class="prag-a-chart">
+          <h4>Sales mix — top products</h4>
+          <div class="prag-a-bar-row">
+            <span class="name">Espresso Blend</span>
+            <div class="prag-a-bar-track"><div class="prag-a-bar" style="width:100%;"></div></div>
+            <span class="num">32%</span>
+          </div>
+          <div class="prag-a-bar-row">
+            <span class="name">Filter Roast</span>
+            <div class="prag-a-bar-track"><div class="prag-a-bar" style="width:75%;"></div></div>
+            <span class="num">24%</span>
+          </div>
+          <div class="prag-a-bar-row">
+            <span class="name">Cold Brew Kit</span>
+            <div class="prag-a-bar-track"><div class="prag-a-bar" style="width:56%;"></div></div>
+            <span class="num">18%</span>
+          </div>
+          <div class="prag-a-bar-row">
+            <span class="name">Gift Box</span>
+            <div class="prag-a-bar-track"><div class="prag-a-bar" style="width:38%;"></div></div>
+            <span class="num">12%</span>
+          </div>
+          <p class="prag-a-note">Five smaller products (Decaf Blend, Ceramic Mugs, Hand Grinder, Subscription Add-on,
+            Stickers) make up the remaining 14% · <a href="#" onclick="return false;">View full breakdown</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>The data is identical — same three KPIs, same deltas, same product percentages; only the presentation was simplified.</li>
+        <li>Three typefaces, gradients, ornate borders and badges were replaced by three plain, uniform stat tiles.</li>
+        <li>The tilted “3D” pie of nine slices became four horizontal bars — lengths are comparable at a glance, and the 14% long tail is summarised honestly in one line.</li>
+        <li>Whitespace replaced decoration, so the numbers themselves are the loudest thing on the screen.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “The brain simplifies whatever it sees — that's not optional. If we ship the decorated version, users do
+        the simplification themselves and lose accuracy in the process: a 3D pie literally distorts the proportions
+        it exists to show. Designing the simple version ourselves means the takeaway people leave with is the
+        takeaway the data supports — and it's cheaper to build and maintain, too.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/law-of-pragnanz/">Law of Prägnanz — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

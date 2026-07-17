@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Law of Proximity — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .prox-form { max-width: 26rem; }
+    /* BEFORE: labels float exactly between the field above and the field below */
+    .prox-form.ambiguous label {
+      display: block; font-size: .85rem; font-weight: 600;
+      margin: 1.1rem 0 1.1rem; /* equal distance up and down = ambiguity */
+    }
+    .prox-form.ambiguous input {
+      width: 100%; font: inherit; border: 1px solid var(--border);
+      border-radius: 8px; padding: .5rem .75rem; display: block;
+    }
+    .prox-checkline { display: flex; align-items: flex-start; gap: .5rem; font-size: .85rem; }
+    .prox-form.ambiguous .prox-checkline { gap: 2rem; margin-top: 1.4rem; }
+    .prox-actions { margin-top: 1.4rem; display: flex; gap: .7rem; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Gestalt</span>
+    <h1>Law of Proximity</h1>
+    <p class="definition">Objects that are near, or proximate to each other, tend to be perceived as a group.</p>
+    <p class="takeaway"><strong>The scenario:</strong> a shipping-details form. The fields and labels are identical
+      in both versions — only the <em>spacing</em> changes. Notice how in the first version you genuinely can't tell
+      which label belongs to which field.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      Every label sits exactly halfway between two fields, so the eye can't tell if “Postal code” names the field
+      above it or below it. The checkbox floats away from its own text. Users fill in the wrong boxes,
+      then get validation errors they don't understand.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">shop.example.com/checkout/shipping</span>
+      </div>
+      <div class="frame-body">
+        <h3 style="margin-bottom:.4rem;">Shipping details</h3>
+        <div class="prox-form ambiguous">
+          <input type="text" aria-label="Full name">
+          <label>Full name</label>
+          <input type="text" aria-label="Street address">
+          <label>Street address</label>
+          <input type="text" aria-label="Postal code">
+          <label>Postal code</label>
+          <input type="text" aria-label="City">
+          <label>City</label>
+          <div class="prox-checkline">
+            <input type="checkbox" id="prox-b-check">
+            <label for="prox-b-check" style="margin:0; font-weight:400;">Billing address is the same as shipping</label>
+          </div>
+          <div class="prox-actions">
+            <button class="btn btn-primary">Continue</button>
+            <button class="btn">Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      Nothing was added or removed. Each label now sits tight against <em>its own</em> field, with clear space
+      separating each label–field pair from the next. Grouping is instant and effortless — no one has to think.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">shop.example.com/checkout/shipping</span>
+      </div>
+      <div class="frame-body">
+        <h3 style="margin-bottom:1.2rem;">Shipping details</h3>
+        <div class="prox-form">
+          <div class="field">
+            <label for="prox-a-name">Full name</label>
+            <input id="prox-a-name" type="text">
+          </div>
+          <div class="field">
+            <label for="prox-a-street">Street address</label>
+            <input id="prox-a-street" type="text">
+          </div>
+          <div class="field">
+            <label for="prox-a-postal">Postal code</label>
+            <input id="prox-a-postal" type="text">
+          </div>
+          <div class="field">
+            <label for="prox-a-city">City</label>
+            <input id="prox-a-city" type="text">
+          </div>
+          <div class="prox-checkline">
+            <input type="checkbox" id="prox-a-check">
+            <label for="prox-a-check">Billing address is the same as shipping</label>
+          </div>
+          <div class="prox-actions">
+            <button class="btn btn-primary">Continue</button>
+            <button class="btn">Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>Labels moved close to their own fields; whitespace between <em>pairs</em> is larger than within them.</li>
+        <li>The checkbox and its text now touch, so they read as one control.</li>
+        <li>Zero new components, zero new copy — spacing alone did all the work.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “People perceive things that are close together as belonging together — before they read a single word.
+        Getting spacing right costs nothing and reduces form errors and support tickets. Whitespace isn't wasted
+        space; it's doing the grouping work so users don't have to.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/law-of-proximity/">Law of Proximity — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

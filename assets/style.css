@@ -1,0 +1,354 @@
+/* ==========================================================================
+   Laws of UX — Before/After Examples
+   Shared design system. Demo-specific styles live in each page's <style>.
+   ========================================================================== */
+
+:root {
+  --bg: #f5f6fa;
+  --surface: #ffffff;
+  --ink: #1c2130;
+  --muted: #5b6478;
+  --accent: #4f46e5;
+  --accent-soft: #eef0fe;
+  --accent-ink: #ffffff;
+  --danger: #dc2626;
+  --danger-soft: #fdeaea;
+  --ok: #15803d;
+  --ok-soft: #e8f6ec;
+  --warn: #b45309;
+  --warn-soft: #fdf3e3;
+  --border: #e3e6ef;
+  --radius: 12px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 4px 16px rgba(16, 24, 40, .07);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { line-height: 1.2; margin: 0 0 .5rem; }
+p { margin: 0 0 1rem; }
+a { color: var(--accent); }
+
+.container { max-width: 960px; margin: 0 auto; padding: 0 1.25rem; }
+
+/* --------------------------------------------------------------------------
+   Site chrome
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 3.5rem;
+}
+
+.site-header .brand {
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -.01em;
+}
+
+.site-header .brand span { color: var(--accent); }
+
+.site-header .back {
+  font-size: .9rem;
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.site-header .back:hover { color: var(--accent); }
+
+.site-footer {
+  margin: 4rem 0 2rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+/* --------------------------------------------------------------------------
+   Index page
+   -------------------------------------------------------------------------- */
+
+.hero { padding: 3.5rem 0 1.5rem; }
+
+.hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  letter-spacing: -.02em;
+  max-width: 32ch;
+}
+
+.hero p { color: var(--muted); max-width: 60ch; font-size: 1.05rem; }
+
+.law-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  padding: 1.5rem 0 2rem;
+}
+
+.law-card {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem 1.2rem;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  transition: transform .12s ease, border-color .12s ease;
+}
+
+.law-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+
+.law-card h2 { font-size: 1.05rem; margin: 0; }
+
+.law-card p { color: var(--muted); font-size: .88rem; margin: 0; }
+
+/* --------------------------------------------------------------------------
+   Shared bits
+   -------------------------------------------------------------------------- */
+
+.tag {
+  align-self: flex-start;
+  display: inline-block;
+  font-size: .7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: .15rem .6rem;
+}
+
+/* --------------------------------------------------------------------------
+   Law page
+   -------------------------------------------------------------------------- */
+
+.law-intro { padding: 3rem 0 1rem; }
+
+.law-intro h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); letter-spacing: -.02em; }
+
+.law-intro .definition {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 62ch;
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  margin: 1rem 0;
+}
+
+.law-intro .takeaway { max-width: 68ch; }
+
+/* Before / After toggle */
+
+.toggle {
+  display: flex;
+  gap: .4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .3rem;
+  width: fit-content;
+  margin: 1.5rem 0 1rem;
+  position: sticky;
+  top: 4.25rem;
+  z-index: 10;
+  box-shadow: var(--shadow);
+}
+
+.toggle button {
+  font: inherit;
+  font-weight: 600;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  border-radius: 999px;
+  padding: .45rem 1.2rem;
+  cursor: pointer;
+}
+
+.toggle button.active[data-panel="before"] { background: var(--danger); color: #fff; }
+.toggle button.active[data-panel="after"] { background: var(--ok); color: #fff; }
+
+.panel { margin-bottom: 1rem; }
+
+/* Callout above each demo explaining what to look at */
+
+.callout {
+  border-radius: var(--radius);
+  padding: .9rem 1.1rem;
+  font-size: .95rem;
+  margin-bottom: 1rem;
+}
+
+.callout.bad { background: var(--danger-soft); color: #7f1d1d; }
+.callout.good { background: var(--ok-soft); color: #14532d; }
+.callout strong { display: block; margin-bottom: .15rem; }
+
+/* Fake browser frame around each demo */
+
+.demo-frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.demo-frame .frame-bar {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  background: #eceef4;
+  border-bottom: 1px solid var(--border);
+  padding: .55rem .9rem;
+}
+
+.demo-frame .frame-bar .dots { display: flex; gap: .35rem; }
+
+.demo-frame .frame-bar .dots i {
+  width: .65rem;
+  height: .65rem;
+  border-radius: 50%;
+  background: #cdd2e0;
+}
+
+.demo-frame .frame-bar .url {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: .75rem;
+  color: var(--muted);
+  padding: .15rem .7rem;
+  max-width: 22rem;
+}
+
+.demo-frame .frame-body { padding: 1.5rem; }
+
+@media (max-width: 600px) {
+  .demo-frame .frame-body { padding: 1rem; }
+}
+
+/* Explanation blocks under the demos */
+
+.explain {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+@media (max-width: 720px) {
+  .explain { grid-template-columns: 1fr; }
+}
+
+.explain .box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.4rem;
+  box-shadow: var(--shadow);
+}
+
+.explain h2 { font-size: 1rem; }
+
+.explain ul { margin: .5rem 0 0; padding-left: 1.2rem; }
+.explain li { margin-bottom: .45rem; font-size: .95rem; }
+.explain .pitch { font-size: .95rem; color: var(--muted); margin: .5rem 0 0; }
+
+/* --------------------------------------------------------------------------
+   Generic fake-product UI pieces (use inside .frame-body)
+   -------------------------------------------------------------------------- */
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: .5rem 1rem;
+  cursor: pointer;
+}
+
+.btn:hover { border-color: var(--accent); }
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.btn-primary:hover { filter: brightness(1.08); }
+
+.btn-ghost { background: transparent; border-color: transparent; color: var(--muted); }
+
+.field { display: flex; flex-direction: column; gap: .3rem; margin-bottom: 1rem; }
+
+.field label { font-size: .85rem; font-weight: 600; }
+
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .5rem .75rem;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.field .hint { font-size: .78rem; color: var(--muted); }
+
+.error-text { color: var(--danger); font-size: .82rem; }
+.ok-text { color: var(--ok); font-size: .82rem; }
+
+.skeleton {
+  border-radius: 6px;
+  background: linear-gradient(90deg, #edeff5 25%, #f7f8fc 50%, #edeff5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.1s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Small screens */
+
+@media (max-width: 600px) {
+  .law-intro { padding-top: 2rem; }
+  .toggle { top: 3.75rem; }
+}

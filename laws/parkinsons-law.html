@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parkinson's Law — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .park- prefix) */
+    .park-form { max-width: 32rem; }
+    .park-form h3 { margin-bottom: .2rem; }
+    .park-sub { font-size: .85rem; color: var(--muted); margin-bottom: 1.2rem; }
+    .park-time {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: var(--ok-soft); color: var(--ok); font-weight: 600; font-size: .82rem;
+      border-radius: 999px; padding: .2rem .7rem; margin-bottom: 1rem;
+    }
+    .park-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+    @media (max-width: 540px) { .park-grid2 { grid-template-columns: 1fr; } }
+    .park-optional { font-weight: 400; color: var(--muted); font-size: .75rem; }
+    .park-big-textarea textarea { min-height: 11rem; resize: vertical; }
+    .park-upload {
+      border: 2px dashed var(--border); border-radius: 10px; padding: 1rem;
+      text-align: center; font-size: .85rem; color: var(--muted); cursor: pointer;
+    }
+    .park-upload:hover { border-color: var(--accent); color: var(--accent); }
+    .park-actions { display: flex; gap: .7rem; align-items: center; margin-top: 1.2rem; flex-wrap: wrap; }
+    .park-autosave { font-size: .78rem; color: var(--muted); }
+    .park-before-actions .btn-primary { font-size: 1rem; padding: .6rem 1.4rem; }
+    .park-before-actions .park-submit-weak {
+      font: inherit; font-size: .82rem; background: none; border: 0; color: var(--muted);
+      text-decoration: underline; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Principle</span>
+    <h1>Parkinson's Law</h1>
+    <p class="definition">Any task will inflate until all of the available time is spent.</p>
+    <p class="takeaway"><strong>The scenario:</strong> submitting an expense report in Ledgerly, a company finance tool.
+      Finance needs four facts and a receipt. Both versions collect the same information — but one presents an
+      unbounded task that invites procrastination, and the other a two-minute task you finish on the spot.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      An open-ended essay box, fifteen optional fields, and no hint of how long this should take. The task has no
+      edges, so it inflates to fill whatever time the employee gives it — and the most prominent button is
+      “Save draft”, an open invitation to give it no time at all. Drafts pile up; reimbursements stall.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">ledgerly.app/expenses/new</span>
+      </div>
+      <div class="frame-body">
+        <form class="park-form" onsubmit="return false;">
+          <h3>New expense report</h3>
+          <p class="park-sub">Please provide as much detail as possible for the finance team.</p>
+
+          <div class="field park-big-textarea">
+            <label for="park-before-desc">Describe your expenses</label>
+            <textarea id="park-before-desc" placeholder="Describe each expense, its business purpose, attendees, project context, and any other relevant information…"></textarea>
+          </div>
+
+          <div class="park-grid2">
+            <div class="field"><label for="park-before-amount">Amount <span class="park-optional">(optional)</span></label><input id="park-before-amount" type="text"></div>
+            <div class="field"><label for="park-before-currency">Currency <span class="park-optional">(optional)</span></label><input id="park-before-currency" type="text"></div>
+            <div class="field"><label for="park-before-date">Date of expense <span class="park-optional">(optional)</span></label><input id="park-before-date" type="text" placeholder="dd/mm/yyyy"></div>
+            <div class="field"><label for="park-before-vendor">Vendor name <span class="park-optional">(optional)</span></label><input id="park-before-vendor" type="text"></div>
+            <div class="field"><label for="park-before-vat">Vendor VAT number <span class="park-optional">(optional)</span></label><input id="park-before-vat" type="text"></div>
+            <div class="field"><label for="park-before-cat">Category code <span class="park-optional">(optional)</span></label><input id="park-before-cat" type="text" placeholder="See wiki page FIN-042"></div>
+            <div class="field"><label for="park-before-cc">Cost center <span class="park-optional">(optional)</span></label><input id="park-before-cc" type="text"></div>
+            <div class="field"><label for="park-before-proj">Project code <span class="park-optional">(optional)</span></label><input id="park-before-proj" type="text"></div>
+            <div class="field"><label for="park-before-attendees">Attendees <span class="park-optional">(optional)</span></label><input id="park-before-attendees" type="text"></div>
+            <div class="field"><label for="park-before-purpose">Business purpose <span class="park-optional">(optional)</span></label><input id="park-before-purpose" type="text"></div>
+            <div class="field"><label for="park-before-payment">Payment method <span class="park-optional">(optional)</span></label><input id="park-before-payment" type="text"></div>
+            <div class="field"><label for="park-before-mileage">Mileage <span class="park-optional">(optional)</span></label><input id="park-before-mileage" type="text"></div>
+            <div class="field"><label for="park-before-perdiem">Per-diem days <span class="park-optional">(optional)</span></label><input id="park-before-perdiem" type="text"></div>
+            <div class="field"><label for="park-before-approver">Approver <span class="park-optional">(optional)</span></label><input id="park-before-approver" type="text"></div>
+            <div class="field"><label for="park-before-notes">Additional notes <span class="park-optional">(optional)</span></label><input id="park-before-notes" type="text"></div>
+          </div>
+
+          <div class="park-actions park-before-actions">
+            <button class="btn btn-primary" type="button">Save draft</button>
+            <button class="park-submit-weak" type="button">submit for approval</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      The task now has edges: “Takes about 2 minutes”, four required fields, today's date pre-filled, a category
+      dropdown instead of a wiki lookup, and one primary action — “Submit report”. Drafting still happens
+      (autosave), but it's a safety net, not the goal.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">ledgerly.app/expenses/new</span>
+      </div>
+      <div class="frame-body">
+        <form class="park-form" onsubmit="return false;">
+          <h3>New expense report</h3>
+          <p class="park-sub">Just the four things finance actually needs.</p>
+          <span class="park-time">⏱ Takes about 2 minutes</span>
+
+          <div class="park-grid2">
+            <div class="field">
+              <label for="park-after-amount">Amount</label>
+              <input id="park-after-amount" type="text" placeholder="0.00 €">
+            </div>
+            <div class="field">
+              <label for="park-after-date">Date of expense</label>
+              <input id="park-after-date" type="text" value="17/07/2026">
+              <span class="hint">Pre-filled with today — change if needed</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="park-after-cat">Category</label>
+            <select id="park-after-cat">
+              <option>Meals &amp; client entertainment</option>
+              <option>Travel — transport</option>
+              <option>Travel — accommodation</option>
+              <option>Office supplies</option>
+              <option>Software &amp; subscriptions</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="park-after-receipt">Receipt</label>
+            <div class="park-upload" id="park-after-receipt" role="button" tabindex="0">
+              📎 Drop a photo of the receipt here, or click to browse
+            </div>
+            <span class="hint">Amount and vendor are read from the receipt automatically.</span>
+          </div>
+
+          <div class="park-actions">
+            <button class="btn btn-primary" type="button">Submit report</button>
+            <span class="park-autosave">Autosaved just now — you can safely close this page.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>An explicit time budget — “Takes about 2 minutes” — gives the task a boundary before it can inflate.</li>
+        <li>15 optional fields and an essay box became 4 required fields; everything else is derived (from the receipt) or dropped.</li>
+        <li>Smart defaults do part of the work: today's date pre-filled, categories as a dropdown instead of a code lookup.</li>
+        <li>The button hierarchy flipped: “Submit report” is primary; drafting is an invisible autosave, not a destination.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “A task with no visible end absorbs all the time people are willing to give it — which for expense reports is
+        usually none, so they postpone. Telling employees it takes two minutes, and designing so that it truly does,
+        means reports get filed the day the expense happens instead of in a quarter-end panic. Faster filing, cleaner
+        books, fewer chasing emails from finance.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/parkinsons-law/">Parkinson's Law — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

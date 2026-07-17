@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pareto Principle — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .par- prefix) */
+    .par-appbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1rem; padding-bottom: .8rem; border-bottom: 1px solid var(--border);
+    }
+    .par-appbar .par-logo { font-weight: 700; letter-spacing: -.01em; }
+    .par-appbar .par-logo span { color: var(--accent); }
+    .par-appbar .par-user { font-size: .8rem; color: var(--muted); }
+
+    /* BEFORE: 24 equally-weighted buttons */
+    .par-toolbar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+      gap: .5rem;
+    }
+    .par-toolbar-grid button {
+      font: inherit; font-size: .74rem; font-weight: 600;
+      border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+      border-radius: 8px; padding: .55rem .3rem; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: .2rem;
+    }
+    .par-toolbar-grid button:hover { border-color: var(--accent); }
+    .par-toolbar-grid .par-ico { font-size: 1rem; }
+
+    /* AFTER: focused toolbar + open dropdown mock */
+    .par-toolbar-lean { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; position: relative; }
+    .par-toolbar-lean .btn-primary { padding: .55rem 1.3rem; }
+    .par-more-wrap { position: relative; }
+    .par-menu {
+      position: absolute; top: calc(100% + .4rem); left: 0; z-index: 5;
+      min-width: 15rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; box-shadow: var(--shadow);
+      padding: .4rem; font-size: .84rem;
+    }
+    .par-menu .par-menu-group {
+      font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+      color: var(--muted); padding: .45rem .6rem .15rem;
+    }
+    .par-menu a {
+      display: block; padding: .32rem .6rem; border-radius: 6px;
+      color: var(--ink); text-decoration: none;
+    }
+    .par-menu a:hover { background: var(--accent-soft); }
+    .par-menu-spacer { height: 13rem; }
+    .par-usage-note {
+      margin-top: 1rem; font-size: .78rem; color: var(--muted);
+      background: var(--accent-soft); border-radius: 8px; padding: .5rem .8rem;
+      display: inline-block;
+    }
+    .par-recent { margin-top: 1.4rem; border-top: 1px dashed var(--border); padding-top: 1rem; }
+    .par-recent h4 { font-size: .82rem; color: var(--muted); font-weight: 600; margin-bottom: .5rem; }
+    .par-recent .par-row {
+      display: flex; justify-content: space-between; gap: 1rem;
+      font-size: .84rem; padding: .4rem 0; border-bottom: 1px solid var(--border);
+    }
+    .par-recent .par-row:last-child { border-bottom: 0; }
+    .par-recent .par-status { font-size: .72rem; font-weight: 600; border-radius: 999px; padding: .05rem .55rem; }
+    .par-recent .par-paid { background: var(--ok-soft); color: var(--ok); }
+    .par-recent .par-due { background: var(--warn-soft); color: var(--warn); }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Principle</span>
+    <h1>Pareto Principle</h1>
+    <p class="definition">The Pareto principle states that, for many events, roughly 80% of the effects come from 20% of the causes.</p>
+    <p class="takeaway"><strong>The scenario:</strong> the main dashboard of Ledgerly, an invoicing app for freelancers.
+      Usage analytics show that 90% of daily sessions do one of three things: create an invoice, record a payment,
+      or send a reminder. The toolbar below offers 24 features — and hides those three among the other 21.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      Twenty-four buttons, all the same size, weight, and color — the interface treats “New invoice” (used every day)
+      exactly like “Webhooks” (used once, at setup, by 2% of accounts). The vital few are visually drowned by the
+      trivial many, so every session starts with a scan of the whole wall.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">app.ledgerly.io/dashboard</span>
+      </div>
+      <div class="frame-body">
+        <div class="par-appbar">
+          <div class="par-logo">Ledger<span>ly</span></div>
+          <div class="par-user">Acme Design Studio · Trial</div>
+        </div>
+        <div class="par-toolbar-grid">
+          <button><span class="par-ico">🧾</span>New invoice</button>
+          <button><span class="par-ico">📄</span>Duplicate</button>
+          <button><span class="par-ico">⬇️</span>Export PDF</button>
+          <button><span class="par-ico">📊</span>Export CSV</button>
+          <button><span class="par-ico">⬆️</span>Import</button>
+          <button><span class="par-ico">🗃️</span>Archive</button>
+          <button><span class="par-ico">🔀</span>Merge</button>
+          <button><span class="par-ico">✂️</span>Split</button>
+          <button><span class="par-ico">📐</span>Templates</button>
+          <button><span class="par-ico">🔁</span>Recurring</button>
+          <button><span class="par-ico">🏛️</span>Tax settings</button>
+          <button><span class="par-ico">💱</span>Currencies</button>
+          <button><span class="par-ico">⏰</span>Reminders</button>
+          <button><span class="par-ico">💸</span>Late fees</button>
+          <button><span class="par-ico">↩️</span>Credit notes</button>
+          <button><span class="par-ico">📝</span>Estimates</button>
+          <button><span class="par-ico">📦</span>Purchase orders</button>
+          <button><span class="par-ico">📈</span>Reports</button>
+          <button><span class="par-ico">🕵️</span>Audit log</button>
+          <button><span class="par-ico">💾</span>Backup</button>
+          <button><span class="par-ico">🔑</span>API keys</button>
+          <button><span class="par-ico">🪝</span>Webhooks</button>
+          <button><span class="par-ico">🏷️</span>Labels</button>
+          <button><span class="par-ico">🗑️</span>Trash</button>
+        </div>
+        <div class="par-recent">
+          <h4>Recent invoices</h4>
+          <div class="par-row"><span>INV-1042 · Kestrel &amp; Co.</span><span>$1,850.00 <span class="par-status par-due">Due</span></span></div>
+          <div class="par-row"><span>INV-1041 · Bluenote Café</span><span>$420.00 <span class="par-status par-paid">Paid</span></span></div>
+          <div class="par-row"><span>INV-1040 · Harbor Yoga</span><span>$960.00 <span class="par-status par-due">Overdue</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      Identical capabilities — reweighted by real usage. The one action almost every session needs is the single
+      prominent button; the next two are secondary; the remaining 21 live one click away under “More”. The 20% of
+      features that do 80% of the work now own the screen. (The menu is shown open here so you can see nothing was lost.)
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">app.ledgerly.io/dashboard</span>
+      </div>
+      <div class="frame-body">
+        <div class="par-appbar">
+          <div class="par-logo">Ledger<span>ly</span></div>
+          <div class="par-user">Acme Design Studio · Trial</div>
+        </div>
+        <div class="par-toolbar-lean">
+          <button class="btn btn-primary">🧾 New invoice</button>
+          <button class="btn">💰 Record payment</button>
+          <button class="btn">⏰ Send reminder</button>
+          <div class="par-more-wrap">
+            <button class="btn btn-ghost" aria-expanded="true">More ▾</button>
+            <div class="par-menu" role="menu" aria-label="More actions">
+              <div class="par-menu-group">Documents</div>
+              <a href="#" onclick="return false;">Duplicate</a>
+              <a href="#" onclick="return false;">Templates</a>
+              <a href="#" onclick="return false;">Recurring</a>
+              <a href="#" onclick="return false;">Estimates</a>
+              <a href="#" onclick="return false;">Credit notes</a>
+              <a href="#" onclick="return false;">Purchase orders</a>
+              <div class="par-menu-group">Data</div>
+              <a href="#" onclick="return false;">Export PDF</a>
+              <a href="#" onclick="return false;">Export CSV</a>
+              <a href="#" onclick="return false;">Import</a>
+              <a href="#" onclick="return false;">Reports</a>
+              <a href="#" onclick="return false;">Backup</a>
+              <div class="par-menu-group">Organize</div>
+              <a href="#" onclick="return false;">Archive</a>
+              <a href="#" onclick="return false;">Merge</a>
+              <a href="#" onclick="return false;">Split</a>
+              <a href="#" onclick="return false;">Labels</a>
+              <a href="#" onclick="return false;">Trash</a>
+              <div class="par-menu-group">Settings</div>
+              <a href="#" onclick="return false;">Tax settings</a>
+              <a href="#" onclick="return false;">Currencies</a>
+              <a href="#" onclick="return false;">Late fees</a>
+              <a href="#" onclick="return false;">Audit log</a>
+              <a href="#" onclick="return false;">API keys</a>
+              <a href="#" onclick="return false;">Webhooks</a>
+            </div>
+          </div>
+        </div>
+        <div class="par-menu-spacer" aria-hidden="true"></div>
+        <div class="par-usage-note">📊 Based on usage analytics: these 3 actions cover 90% of daily sessions.</div>
+        <div class="par-recent">
+          <h4>Recent invoices</h4>
+          <div class="par-row"><span>INV-1042 · Kestrel &amp; Co.</span><span>$1,850.00 <span class="par-status par-due">Due</span></span></div>
+          <div class="par-row"><span>INV-1041 · Bluenote Café</span><span>$420.00 <span class="par-status par-paid">Paid</span></span></div>
+          <div class="par-row"><span>INV-1040 · Harbor Yoga</span><span>$960.00 <span class="par-status par-due">Overdue</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>24 equal buttons → 1 primary, 2 secondary, 21 grouped under “More” — zero features removed.</li>
+        <li>Visual weight now mirrors usage data: the daily 20% gets 100% of the prominence.</li>
+        <li>The “More” menu is organized into labeled groups (Documents, Data, Organize, Settings), so the long tail is still findable in one click.</li>
+        <li>Screen real estate freed by the toolbar goes to what users actually check: recent invoices and their status.</li>
+        <li>The decision of <em>what earns a top-level spot</em> is made by analytics, not by whoever shipped the feature last.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “Our analytics say three actions account for nine out of ten sessions, yet on screen they get the same billing
+        as webhooks. We're not cutting a single feature — we're letting the data decide which 20% earns its place on
+        screen and moving the rest one click away. Users find their daily action instantly, and every team's feature
+        is still there for the moment it's needed.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/pareto-principle/">Pareto Principle — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

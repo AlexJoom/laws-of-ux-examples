@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jakob's Law — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .jak- prefix) */
+    .jak-product { display: grid; grid-template-columns: 220px 1fr; gap: 1.5rem; align-items: start; }
+    .jak-cover {
+      aspect-ratio: 2 / 3; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: .4rem; color: #fff; text-align: center; padding: 1rem;
+      background: linear-gradient(160deg, #1e3a5f, #4b6584); font-weight: 700; letter-spacing: .02em;
+    }
+    .jak-cover small { font-weight: 400; opacity: .8; }
+    .jak-meta { font-size: .85rem; color: var(--muted); }
+    .jak-stars { color: #f59e0b; font-size: .85rem; }
+    @media (max-width: 600px) { .jak-product { grid-template-columns: 130px 1fr; gap: 1rem; } }
+
+    /* ---------- BEFORE: "creative" layout ---------- */
+    .jak-bad-header {
+      display: flex; flex-direction: column; align-items: center; gap: .3rem;
+      border-bottom: 1px solid var(--border); padding: .6rem 0 .5rem; margin-bottom: 1.2rem; position: relative;
+    }
+    .jak-bad-header .jak-bad-nav { display: flex; gap: 1.3rem; font-size: .8rem; }
+    .jak-bad-header .jak-bad-nav a { color: var(--muted); text-decoration: none; }
+    .jak-bad-header .jak-bad-logo { font-size: 1.15rem; font-weight: 800; letter-spacing: .12em; color: #1e3a5f; order: 2; }
+    .jak-bad-search-icon {
+      position: absolute; left: 0; top: .7rem; background: none; border: 0; cursor: pointer;
+      font-size: 1rem; color: var(--muted); padding: .2rem;
+    }
+    .jak-bad-body { position: relative; padding-bottom: 3.2rem; }
+    .jak-bad-title { font-size: 1.2rem; margin-bottom: .2rem; }
+    .jak-bad-addlink { font-size: .85rem; margin-top: 1rem; }
+    .jak-bad-addlink a { color: var(--muted); }
+    .jak-bad-pricehint { font-size: .75rem; color: var(--muted); font-style: italic; margin-top: 1.4rem; }
+    .jak-bad-satchel {
+      position: absolute; left: 0; bottom: 0; font-size: .8rem; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 999px; padding: .3rem .8rem; color: var(--muted);
+    }
+
+    /* ---------- AFTER: conventions ---------- */
+    .jak-good-header {
+      display: flex; align-items: center; gap: 1.2rem;
+      border-bottom: 1px solid var(--border); padding-bottom: .7rem; margin-bottom: .8rem;
+    }
+    .jak-good-logo { font-size: 1.05rem; font-weight: 800; letter-spacing: .12em; color: #1e3a5f; text-decoration: none; white-space: nowrap; }
+    .jak-good-search { flex: 1; display: flex; max-width: 22rem; }
+    .jak-good-search input {
+      flex: 1; font: inherit; font-size: .82rem; border: 1px solid var(--border);
+      border-radius: 8px 0 0 8px; border-right: 0; padding: .4rem .7rem; min-width: 0;
+    }
+    .jak-good-search button {
+      font: inherit; font-size: .82rem; border: 1px solid var(--border); background: var(--bg);
+      border-radius: 0 8px 8px 0; padding: .4rem .7rem; cursor: pointer;
+    }
+    .jak-good-cart { margin-left: auto; position: relative; font-size: 1.15rem; text-decoration: none; }
+    .jak-good-cart .count {
+      position: absolute; top: -.45rem; right: -.6rem; background: var(--danger); color: #fff;
+      font-size: .6rem; font-weight: 700; border-radius: 999px; padding: 0 .32rem; line-height: 1.35;
+    }
+    .jak-crumbs { font-size: .75rem; color: var(--muted); margin-bottom: 1.2rem; }
+    .jak-crumbs a { color: var(--muted); text-decoration: none; }
+    .jak-good-title { font-size: 1.25rem; margin-bottom: .15rem; }
+    .jak-good-price { font-size: 1.3rem; font-weight: 700; margin: .6rem 0 .2rem; }
+    .jak-good-stock { font-size: .8rem; color: var(--ok); margin-bottom: .9rem; }
+    @media (max-width: 600px) { .jak-good-search { max-width: none; } }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Heuristic</span>
+    <h1>Jakob's Law</h1>
+    <p class="definition">Users spend most of their time on other sites. They prefer your site to work the same way as all the other sites they already know.</p>
+    <p class="takeaway"><strong>The scenario:</strong> a product page on Inkwell Books, an online bookshop. Shoppers arrive
+      with years of Amazon-shaped muscle memory: logo top-left, search in the middle, cart top-right, a big “Add to cart”
+      button next to the price. The “before” breaks every one of those expectations in the name of originality.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      The logo sits centered at the <em>bottom</em> of the header, search hides behind an unlabeled icon on the far left,
+      the cart is a “My Satchel 🎒” pill parked bottom-left, the price is buried below the fold, and “Add to bag” is a
+      plain grey text link. Every one of these is findable — eventually. Shoppers shouldn't need “eventually.”
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">inkwellbooks.com/product/the-silent-harbour</span>
+      </div>
+      <div class="frame-body">
+        <div class="jak-bad-header">
+          <button class="jak-bad-search-icon" type="button" aria-label="Search (unlabeled)">◎</button>
+          <nav class="jak-bad-nav">
+            <a href="#" onclick="return false;">Fiction</a>
+            <a href="#" onclick="return false;">Non-fiction</a>
+            <a href="#" onclick="return false;">Children</a>
+            <a href="#" onclick="return false;">Gifts</a>
+          </nav>
+          <div class="jak-bad-logo">INKWELL BOOKS</div>
+        </div>
+        <div class="jak-bad-body">
+          <div class="jak-product">
+            <div class="jak-cover">The Silent Harbour<small>M. Aleiferi</small></div>
+            <div>
+              <h3 class="jak-bad-title">The Silent Harbour</h3>
+              <p class="jak-meta">by Marina Aleiferi · Hardcover · 384 pages</p>
+              <p class="jak-stars">★★★★☆ <span class="jak-meta">(1,207 reviews)</span></p>
+              <p class="jak-meta" style="margin-bottom:0;">A lighthouse keeper's daughter uncovers a decades-old
+                disappearance in a fog-bound Aegean port town.</p>
+              <p class="jak-bad-addlink"><a href="#" onclick="return false;">add to bag</a></p>
+              <p class="jak-bad-pricehint">↓ scroll down for pricing &amp; availability ↓</p>
+            </div>
+          </div>
+          <span class="jak-bad-satchel">My Satchel 🎒 (2)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      The same shop, rebuilt on conventions: logo top-left linking home, a visible search bar in the center, a cart icon
+      with a count top-right, breadcrumbs for orientation, and the price sitting right next to the title above a
+      prominent “Add to cart” button. Nothing to learn — shoppers already know this page from everywhere else.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">inkwellbooks.com/product/the-silent-harbour</span>
+      </div>
+      <div class="frame-body">
+        <div class="jak-good-header">
+          <a class="jak-good-logo" href="#" onclick="return false;">INKWELL BOOKS</a>
+          <div class="jak-good-search">
+            <input type="text" placeholder="Search books, authors, ISBN…" aria-label="Search books">
+            <button type="button" aria-label="Search">🔍</button>
+          </div>
+          <a class="jak-good-cart" href="#" onclick="return false;" aria-label="Cart, 2 items">🛒<span class="count">2</span></a>
+        </div>
+        <nav class="jak-crumbs" aria-label="Breadcrumb">
+          <a href="#" onclick="return false;">Home</a> › <a href="#" onclick="return false;">Fiction</a> ›
+          <a href="#" onclick="return false;">Mystery</a> › The Silent Harbour
+        </nav>
+        <div class="jak-product">
+          <div class="jak-cover">The Silent Harbour<small>M. Aleiferi</small></div>
+          <div>
+            <h3 class="jak-good-title">The Silent Harbour</h3>
+            <p class="jak-meta">by Marina Aleiferi · Hardcover · 384 pages</p>
+            <p class="jak-stars">★★★★☆ <span class="jak-meta">(1,207 reviews)</span></p>
+            <p class="jak-good-price">€18.90</p>
+            <p class="jak-good-stock">✓ In stock — ships tomorrow</p>
+            <button class="btn btn-primary" type="button">Add to cart</button>
+            <p class="jak-meta" style="margin-top:1rem; margin-bottom:0;">A lighthouse keeper's daughter uncovers a
+              decades-old disappearance in a fog-bound Aegean port town.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>Logo moved to the top-left and made a link home — where a decade of web use has taught people it lives.</li>
+        <li>Search is a visible labeled bar in the header center, not an unlabeled icon on the edge.</li>
+        <li>“My Satchel 🎒” became a standard cart icon with an item count, top-right.</li>
+        <li>Price sits next to the title, followed by stock info and a prominent “Add to cart” button — instead of a grey text link and a below-the-fold price.</li>
+        <li>Breadcrumbs added so shoppers always know where they are in the catalog.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “Our customers arrive trained by every other shop they use — that training is a free asset, and the ‘creative’
+        layout throws it away. Every convention we break becomes a small puzzle standing between the shopper and the
+        purchase, and each puzzle costs us a percentage of them. Being conventional in navigation and checkout isn't
+        being boring; it's what lets our actual differentiators — the books, the prices, the service — get all the
+        attention.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/jakobs-law/">Jakob's Law — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

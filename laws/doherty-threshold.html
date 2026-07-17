@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doherty Threshold — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .doh-search { display: flex; gap: .6rem; max-width: 30rem; }
+    .doh-search input { flex: 1; font: inherit; border: 1px solid var(--border); border-radius: 8px; padding: .5rem .75rem; }
+    .doh-results { margin-top: 1.2rem; max-width: 30rem; min-height: 12rem; }
+    .doh-result { border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; margin-bottom: .6rem; font-size: .88rem; }
+    .doh-result h4 { font-size: .92rem; margin-bottom: .1rem; }
+    .doh-result p { margin: 0; color: var(--muted); font-size: .8rem; }
+    .doh-skel { height: 3.4rem; margin-bottom: .6rem; }
+    .doh-status { font-size: .82rem; color: var(--muted); margin-top: .6rem; min-height: 1.2rem; }
+    .doh-frozen-note { font-size: .82rem; color: var(--danger); margin-top: .6rem; min-height: 1.2rem; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Heuristic</span>
+    <h1>Doherty Threshold</h1>
+    <p class="definition">Productivity soars when a computer and its users interact at a pace (&lt;400&nbsp;ms) that ensures neither has to wait on the other.</p>
+    <p class="takeaway"><strong>The scenario:</strong> searching a company knowledge base. Both versions below are <em>live —
+      try them</em>. The backend is equally “slow” in both; only the way the interface handles the wait differs.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      Press <em>Search</em> and… nothing. No spinner, no state change, no acknowledgment for three full seconds.
+      Users double-click, assume it's broken, or switch tabs. Try it.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">helpdesk.acme.com/search</span>
+      </div>
+      <div class="frame-body">
+        <h3 style="margin-bottom:1rem;">Knowledge base</h3>
+        <div class="doh-search">
+          <input id="doh-before-input" type="text" value="reset password" aria-label="Search query">
+          <button class="btn btn-primary" id="doh-before-btn">Search</button>
+        </div>
+        <div class="doh-frozen-note" id="doh-before-note"></div>
+        <div class="doh-results" id="doh-before-results"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      The interface responds within 100&nbsp;ms of every action: the button acknowledges the click, skeleton rows appear
+      instantly, and results stream in as they're ready. The backend didn't get faster — the <em>feedback</em> did. Try it.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">helpdesk.acme.com/search</span>
+      </div>
+      <div class="frame-body">
+        <h3 style="margin-bottom:1rem;">Knowledge base</h3>
+        <div class="doh-search">
+          <input id="doh-after-input" type="text" value="reset password" aria-label="Search query">
+          <button class="btn btn-primary" id="doh-after-btn">Search</button>
+        </div>
+        <div class="doh-status" id="doh-after-status"></div>
+        <div class="doh-results" id="doh-after-results"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>Every click is acknowledged in under 400&nbsp;ms — button state, status text, skeleton placeholders.</li>
+        <li>Perceived performance improved without touching the backend: results stream in instead of arriving all at once.</li>
+        <li>Skeleton rows set the expectation of <em>what</em> is coming and <em>that</em> it's coming.</li>
+        <li>No dead time where the user wonders whether the system heard them.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “Users don't abandon slow systems — they abandon <em>silent</em> ones. Keeping every response under 400&nbsp;ms,
+        even if it's just ‘working on it…’, keeps people engaged and in flow. This is often a one-sprint UI fix,
+        not a six-month infrastructure project.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/doherty-threshold/">Doherty Threshold — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+<script>
+  const DOH_RESULTS = [
+    { t: 'How to reset your password', d: 'Account settings → Security → Reset password. Takes about one minute.' },
+    { t: 'Password requirements', d: 'Minimum 12 characters. Passphrases are encouraged.' },
+    { t: 'Resetting 2FA along with your password', d: 'If you lost your device, contact IT to re-enroll two-factor auth.' },
+  ];
+
+  const dohResultHtml = (r) => `<div class="doh-result"><h4>${r.t}</h4><p>${r.d}</p></div>`;
+
+  // BEFORE: 3 seconds of absolute silence, then everything at once.
+  document.getElementById('doh-before-btn').addEventListener('click', () => {
+    const results = document.getElementById('doh-before-results');
+    const note = document.getElementById('doh-before-note');
+    results.innerHTML = '';
+    note.textContent = '';
+    // Deliberately no feedback of any kind.
+    setTimeout(() => {
+      results.innerHTML = DOH_RESULTS.map(dohResultHtml).join('');
+      note.textContent = '(3000 ms of silence — did you click twice?)';
+    }, 3000);
+  });
+
+  // AFTER: instant acknowledgment + skeletons, results stream in.
+  document.getElementById('doh-after-btn').addEventListener('click', (e) => {
+    const btn = e.currentTarget;
+    const results = document.getElementById('doh-after-results');
+    const status = document.getElementById('doh-after-status');
+    btn.disabled = true;
+    btn.textContent = 'Searching…';
+    status.textContent = 'Searching 1,240 articles…';
+    results.innerHTML = '<div class="doh-skel skeleton"></div>'.repeat(3);
+    DOH_RESULTS.forEach((r, i) => {
+      setTimeout(() => {
+        const skel = results.querySelector('.doh-skel');
+        if (skel) skel.outerHTML = dohResultHtml(r);
+        if (i === DOH_RESULTS.length - 1) {
+          btn.disabled = false;
+          btn.textContent = 'Search';
+          status.textContent = '3 results · first feedback in <100 ms';
+        }
+      }, 350 + i * 450);
+    });
+  });
+</script>
+</body>
+</html>

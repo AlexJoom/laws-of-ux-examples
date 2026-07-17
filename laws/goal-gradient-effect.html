@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goal-Gradient Effect — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .goal- prefix) */
+    .goal-wrap { max-width: 30rem; }
+    .goal-card {
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem 1.1rem; margin-bottom: 1.2rem;
+    }
+    .goal-card h4 { font-size: .95rem; margin-bottom: .4rem; }
+    .goal-plain { color: var(--muted); font-size: .9rem; margin: 0; }
+
+    /* Stamp card (after) */
+    .goal-stamps { display: grid; grid-template-columns: repeat(6, 1fr); gap: .5rem; margin: .7rem 0 .5rem; }
+    .goal-stamp {
+      aspect-ratio: 1; border-radius: 50%; border: 2px dashed var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--border);
+    }
+    .goal-stamp.filled { border: 2px solid var(--accent); background: var(--accent-soft); color: inherit; }
+    .goal-stamp.bonus { position: relative; }
+    .goal-stamp.bonus::after {
+      content: "gift"; position: absolute; bottom: -0.85rem; font-size: .55rem;
+      text-transform: uppercase; letter-spacing: .05em; color: var(--accent); font-weight: 700;
+    }
+    .goal-stamp.goal-prize { border-style: solid; border-color: var(--warn); color: inherit; font-size: 1.2rem; }
+    .goal-note { font-size: .82rem; color: var(--muted); margin: .8rem 0 0; }
+    .goal-note strong { color: var(--ink); }
+
+    /* Checkout progress */
+    .goal-steps-text { font-size: .85rem; color: var(--muted); margin: 0 0 .8rem; }
+    .goal-bar { height: .65rem; background: var(--accent-soft); border-radius: 999px; overflow: hidden; margin: .6rem 0 .35rem; }
+    .goal-bar i { display: block; height: 100%; width: 33%; background: var(--accent); border-radius: 999px; }
+    .goal-bar-label { display: flex; justify-content: space-between; font-size: .75rem; color: var(--muted); }
+    .goal-skip { font-size: .8rem; color: var(--ok); font-weight: 600; margin: .4rem 0 0; }
+    .goal-form-stub { margin-top: 1rem; }
+    .goal-form-stub .field { margin-bottom: .7rem; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Principle</span>
+    <h1>Goal-Gradient Effect</h1>
+    <p class="definition">The tendency to approach a goal increases with proximity to the goal.</p>
+    <p class="takeaway"><strong>The scenario:</strong> Beanhouse Coffee runs a loyalty program and an online ordering
+      checkout. In both versions the customer is exactly the same distance from the free coffee and from completing
+      the order — but only one version makes them <em>feel</em> like they're almost there.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      Progress exists only as arithmetic. “2 of 10 stamps” reads as <em>eight more purchases</em> — a mountain.
+      And “Step 2 of 6” in checkout is just a caption; nothing visually moves, so nothing pulls the customer forward.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">order.beanhouse.coffee/account</span>
+      </div>
+      <div class="frame-body">
+        <div class="goal-wrap">
+          <div class="goal-card">
+            <h4>☕ Beanhouse Rewards</h4>
+            <p class="goal-plain">You have 2 stamps. Collect 10 for a free coffee.</p>
+          </div>
+          <div class="goal-card">
+            <h4>Checkout</h4>
+            <p class="goal-steps-text">Step 2 of 6 — Delivery details</p>
+            <div class="goal-form-stub">
+              <div class="field">
+                <label for="goal-before-addr">Delivery address</label>
+                <input id="goal-before-addr" type="text" placeholder="Street and number">
+              </div>
+              <div class="field">
+                <label for="goal-before-notes">Delivery notes</label>
+                <input id="goal-before-notes" type="text" placeholder="e.g. ring twice">
+              </div>
+              <button class="btn btn-primary">Continue</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      The stamp card is visual and starts with 2 bonus stamps “as a welcome gift” on a 12-stamp card — the
+      distance to the free coffee is identical, but progress already under way feels worth protecting.
+      Checkout shows a bar already 33% full because the account was recognized and a step was skipped.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">order.beanhouse.coffee/account</span>
+      </div>
+      <div class="frame-body">
+        <div class="goal-wrap">
+          <div class="goal-card">
+            <h4>☕ Beanhouse Rewards</h4>
+            <div class="goal-stamps" aria-label="Stamp card: 4 of 12 stamps collected">
+              <div class="goal-stamp filled bonus">☕</div>
+              <div class="goal-stamp filled bonus">☕</div>
+              <div class="goal-stamp filled">☕</div>
+              <div class="goal-stamp filled">☕</div>
+              <div class="goal-stamp"></div>
+              <div class="goal-stamp"></div>
+              <div class="goal-stamp"></div>
+              <div class="goal-stamp"></div>
+              <div class="goal-stamp"></div>
+              <div class="goal-stamp"></div>
+              <div class="goal-stamp"></div>
+              <div class="goal-stamp goal-prize">🎁</div>
+            </div>
+            <p class="goal-note"><strong>4 of 12 stamped</strong> — the first two were on us. You're a third of the way to a free coffee.</p>
+          </div>
+          <div class="goal-card">
+            <h4>Checkout</h4>
+            <div class="goal-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"><i></i></div>
+            <div class="goal-bar-label"><span>Delivery details</span><span>33% done</span></div>
+            <p class="goal-skip">✓ Account found — payment step skipped</p>
+            <div class="goal-form-stub">
+              <div class="field">
+                <label for="goal-after-addr">Delivery address</label>
+                <input id="goal-after-addr" type="text" value="Karneadou 12">
+              </div>
+              <div class="field">
+                <label for="goal-after-notes">Delivery notes</label>
+                <input id="goal-after-notes" type="text" placeholder="e.g. ring twice">
+              </div>
+              <button class="btn btn-primary">Continue — 2 short steps left</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>Text arithmetic became a visual stamp card — customers can <em>see</em> the shrinking gap to the prize.</li>
+        <li>Endowed progress: a 12-stamp card with 2 pre-filled bonus stamps requires the same 8 purchases as “2 of 10”, but starting at 33% instead of 20% measurably increases completion.</li>
+        <li>The checkout progress bar starts partially filled with an honest reason (“account found — payment step skipped”), so momentum exists from the first screen.</li>
+        <li>The continue button counts <em>down</em> (“2 short steps left”) — effort framing shrinks as the goal nears.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “People speed up as they get closer to a finish line, so our job is to make the finish line feel close and
+        getting closer. The stamp-card trick is worth being transparent about internally: we give two ‘bonus’ stamps on
+        a longer card, so the customer buys exactly as many coffees as before — but perceived progress roughly doubles,
+        and in the classic study that nearly doubled completion rates. It costs us nothing and it isn't dishonest:
+        the bonus is real, the card length is printed right on it.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/goal-gradient-effect/">Goal-Gradient Effect — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

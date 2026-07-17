@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Law of Uniform Connectedness — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .conn- prefix) */
+    .conn-section { margin-bottom: 1.8rem; }
+    .conn-section h4 { font-size: .95rem; margin-bottom: .8rem; }
+
+    /* ---------- BEFORE: disconnected pieces ---------- */
+    .conn-b-steps { display: flex; flex-wrap: wrap; align-items: flex-start; }
+    .conn-b-step {
+      border: 1px solid var(--border); border-radius: 8px; background: var(--surface);
+      padding: .5rem .8rem; font-size: .82rem; font-weight: 600;
+    }
+    .conn-b-step small { display: block; font-weight: 400; color: var(--muted); font-size: .68rem; }
+    .conn-b-step:nth-child(1) { margin-right: 3.2rem; }
+    .conn-b-step:nth-child(2) { margin-right: .6rem; margin-top: .5rem; }
+    .conn-b-step:nth-child(3) { margin-right: 2.4rem; }
+    .conn-b-step:nth-child(4) { margin-top: .8rem; }
+
+    .conn-b-search { display: flex; align-items: center; }
+    .conn-b-search input {
+      font: inherit; font-size: .85rem; border: 1px solid var(--border);
+      border-radius: 999px; padding: .45rem .9rem; width: 15rem; background: var(--surface);
+    }
+    .conn-b-search button {
+      font: inherit; font-size: .85rem; margin-left: 2.4rem; cursor: pointer;
+      border: 0; background: none; color: var(--muted); text-decoration: underline;
+    }
+    .conn-b-price { display: flex; align-items: center; }
+    .conn-b-price input {
+      font: inherit; font-size: .85rem; border: 1px solid var(--border);
+      border-radius: 8px; padding: .45rem .6rem; width: 5rem; background: var(--surface);
+    }
+    .conn-b-price input + input { margin-left: 5rem; }
+
+    /* ---------- AFTER: visually connected controls ---------- */
+    .conn-a-steps { display: flex; max-width: 30rem; }
+    .conn-a-step { flex: 1; position: relative; text-align: center; font-size: .72rem; color: var(--muted); }
+    .conn-a-step::before {
+      content: ""; position: absolute; top: .8rem; right: 50%;
+      width: 100%; height: 2px; background: var(--border);
+    }
+    .conn-a-step:first-child::before { display: none; }
+    .conn-a-step.done::before, .conn-a-step.current::before { background: var(--accent); }
+    .conn-a-dot {
+      position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center;
+      width: 1.6rem; height: 1.6rem; border-radius: 50%; font-size: .72rem; font-weight: 700;
+      background: var(--surface); border: 2px solid var(--border); color: var(--muted); margin-bottom: .2rem;
+    }
+    .conn-a-step.done .conn-a-dot { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .conn-a-step.current .conn-a-dot { border-color: var(--accent); color: var(--accent); }
+    .conn-a-step.current { color: var(--ink); font-weight: 600; }
+
+    .conn-a-search { display: flex; max-width: 22rem; }
+    .conn-a-search input {
+      font: inherit; font-size: .85rem; flex: 1; min-width: 0;
+      border: 1px solid var(--border); border-right: 0; border-radius: 8px 0 0 8px;
+      padding: .45rem .75rem; background: var(--surface);
+    }
+    .conn-a-search input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+    .conn-a-search button {
+      font: inherit; font-size: .85rem; font-weight: 600; cursor: pointer;
+      border: 1px solid var(--accent); border-radius: 0 8px 8px 0;
+      background: var(--accent); color: #fff; padding: .45rem .9rem;
+    }
+    .conn-a-price-label { display: block; font-size: .8rem; font-weight: 600; margin-bottom: .3rem; }
+    .conn-a-price { display: inline-flex; align-items: center; gap: .45rem; }
+    .conn-a-price input {
+      font: inherit; font-size: .85rem; border: 1px solid var(--border);
+      border-radius: 8px; padding: .45rem .6rem; width: 5rem; background: var(--surface);
+    }
+    .conn-a-price .dash { color: var(--muted); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Gestalt</span>
+    <h1>Law of Uniform Connectedness</h1>
+    <p class="definition">Elements that are visually connected are perceived as more related than elements with no connection.</p>
+    <p class="takeaway"><strong>The scenario:</strong> an online shop's checkout page — a four-step wizard header,
+      a product search, and a price-range filter. Every element and every word is identical in both versions;
+      only the <em>visual connections</em> (lines, shared borders, joined edges) change. Notice how the first
+      version reads as nine unrelated fragments, the second as three coherent controls.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      The four checkout steps are four floating boxes with uneven gaps — nothing says they form a sequence,
+      or where you are in it. The search field and its “Search” action are separated by a gulf and styled like
+      strangers. And the two price fields sit far apart with no label or connector: are they min and max,
+      quantity, a coupon code? Users must guess at relationships the design refuses to draw.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">homegear.shop/checkout</span>
+      </div>
+      <div class="frame-body">
+        <div class="conn-section">
+          <div class="conn-b-steps">
+            <div class="conn-b-step">Cart <small>Step 1</small></div>
+            <div class="conn-b-step">Shipping <small>Step 2</small></div>
+            <div class="conn-b-step">Payment <small>Step 3</small></div>
+            <div class="conn-b-step">Confirm <small>Step 4</small></div>
+          </div>
+        </div>
+        <div class="conn-section">
+          <h4>Add another item before you pay</h4>
+          <div class="conn-b-search">
+            <input type="text" placeholder="Search 4,000+ products…" aria-label="Search products">
+            <button type="button">Search</button>
+          </div>
+        </div>
+        <div class="conn-section" style="margin-bottom:.4rem;">
+          <div class="conn-b-price">
+            <input type="text" value="20" aria-label="Minimum price">
+            <input type="text" value="150" aria-label="Maximum price">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      Same steps, same fields, same words. A single progress line now threads the four steps into one sequence,
+      with the current step highlighted. The search input and its button share one border and sit flush — one
+      control, one action. The price fields are joined by a “–” under a shared “Price range (€)” label.
+      The connections do the explaining, so the labels don't have to.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">homegear.shop/checkout</span>
+      </div>
+      <div class="frame-body">
+        <div class="conn-section">
+          <div class="conn-a-steps">
+            <div class="conn-a-step done"><span class="conn-a-dot">✓</span><br>Cart</div>
+            <div class="conn-a-step current"><span class="conn-a-dot">2</span><br>Shipping</div>
+            <div class="conn-a-step"><span class="conn-a-dot">3</span><br>Payment</div>
+            <div class="conn-a-step"><span class="conn-a-dot">4</span><br>Confirm</div>
+          </div>
+        </div>
+        <div class="conn-section">
+          <h4>Add another item before you pay</h4>
+          <div class="conn-a-search">
+            <input type="text" placeholder="Search 4,000+ products…" aria-label="Search products">
+            <button type="button">Search</button>
+          </div>
+        </div>
+        <div class="conn-section" style="margin-bottom:.4rem;">
+          <span class="conn-a-price-label">Price range (€)</span>
+          <div class="conn-a-price">
+            <input type="text" value="20" aria-label="Minimum price">
+            <span class="dash">–</span>
+            <input type="text" value="150" aria-label="Maximum price">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>No content changed — the same four steps, one search, and two price fields appear in both versions.</li>
+        <li>A connecting progress line turns four floating boxes into one sequence, with completed and current steps marked.</li>
+        <li>Search input and button now share a border and touch — visually one control, so the action is unmistakable.</li>
+        <li>The price fields gained a “–” connector and a shared label, so “from–to” is understood at a glance.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “Users don't read interfaces, they parse them — and a visible connection is the strongest ‘these belong
+        together’ signal we can send. A line through the checkout steps, a button fused to its search box, a dash
+        between two price fields: a few pixels of connection replace a paragraph of explanation. That means fewer
+        mis-clicks in checkout, and checkout is exactly where confusion costs us revenue.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/law-of-uniform-connectedness/">Law of Uniform Connectedness — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

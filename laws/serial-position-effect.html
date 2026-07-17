@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serial Position Effect — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .ser- prefix) */
+    .ser-stage { display: flex; justify-content: center; }
+    .ser-phone {
+      width: 320px; max-width: 100%;
+      border: 10px solid #1c2130; border-radius: 34px;
+      background: var(--bg); overflow: hidden;
+      display: flex; flex-direction: column;
+      height: 560px;
+      box-shadow: var(--shadow);
+    }
+    .ser-notch {
+      height: 1.4rem; background: #1c2130;
+      border-radius: 0 0 12px 12px;
+      width: 40%; margin: 0 auto; flex: none;
+    }
+    .ser-screen { flex: 1; overflow-y: auto; padding: .9rem .9rem 1rem; }
+    .ser-appname { font-weight: 800; font-size: 1.05rem; letter-spacing: -.02em; margin-bottom: .1rem; }
+    .ser-appname span { color: var(--accent); }
+    .ser-sub { font-size: .72rem; color: var(--muted); margin-bottom: .8rem; }
+
+    .ser-section-title { font-size: .8rem; font-weight: 700; margin: .9rem 0 .45rem; }
+
+    /* Dish carousel */
+    .ser-carousel {
+      display: flex; gap: .55rem; overflow-x: auto;
+      padding-bottom: .5rem; scroll-snap-type: x mandatory;
+    }
+    .ser-dish {
+      flex: 0 0 7.2rem; scroll-snap-align: start;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: .5rem; font-size: .68rem;
+    }
+    .ser-dish .ser-art {
+      font-size: 1.5rem; text-align: center;
+      background: var(--accent-soft); border-radius: 8px;
+      padding: .5rem 0; margin-bottom: .35rem;
+    }
+    .ser-dish h5 { margin: 0 0 .1rem; font-size: .7rem; line-height: 1.25; }
+    .ser-dish .ser-price { color: var(--muted); }
+    .ser-dish.ser-signature { border: 2px solid var(--accent); }
+    .ser-dish .ser-badge {
+      display: inline-block; font-size: .56rem; font-weight: 700;
+      background: var(--accent); color: #fff; border-radius: 999px;
+      padding: .05rem .4rem; margin-bottom: .25rem;
+    }
+    .ser-dish.ser-again .ser-art { background: var(--ok-soft); }
+
+    /* Restaurant list */
+    .ser-resto {
+      display: flex; gap: .6rem; align-items: center;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: .5rem .6rem; margin-bottom: .5rem;
+      font-size: .72rem;
+    }
+    .ser-resto .ser-art {
+      flex: none; width: 2.2rem; height: 2.2rem; font-size: 1.15rem;
+      display: grid; place-items: center;
+      background: var(--warn-soft); border-radius: 8px;
+    }
+    .ser-resto h5 { margin: 0; font-size: .74rem; }
+    .ser-resto p { margin: 0; color: var(--muted); font-size: .66rem; }
+
+    /* Bottom nav */
+    .ser-nav {
+      flex: none; display: flex;
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: .4rem .2rem .6rem;
+    }
+    .ser-nav button {
+      flex: 1; font: inherit; font-size: .58rem; font-weight: 600;
+      border: 0; background: none; color: var(--muted); cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: .1rem;
+    }
+    .ser-nav button .ser-nav-ico { font-size: 1.05rem; }
+    .ser-nav button.ser-active { color: var(--accent); }
+    .ser-nav button .ser-cart-count {
+      position: relative;
+    }
+    .ser-nav button .ser-cart-count::after {
+      content: "2";
+      position: absolute; top: -.25rem; right: -.55rem;
+      background: var(--danger); color: #fff;
+      font-size: .5rem; font-weight: 700;
+      border-radius: 999px; padding: 0 .28rem; line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Principle</span>
+    <h1>Serial Position Effect</h1>
+    <p class="definition">Users have a propensity to best remember the first and last items in a series.</p>
+    <p class="takeaway"><strong>The scenario:</strong> Snackly, a food-delivery app. Two series matter here: the five
+      slots of the bottom navigation bar, and the nine cards of a “Popular dishes” carousel. First and last positions
+      are the two memory anchors of any series — <em>primacy</em> and <em>recency</em> — yet the “before” spends both
+      anchors on low-value items and buries the money actions in the middle.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      The nav bar reads [Promos · Orders · Home · Cart · Help] — Home and Cart, the two destinations users need
+      every session, sit in the forgettable middle while the anchor positions go to Promos and Help. In the carousel,
+      the restaurant's signature dish (its best seller) is card 5 of 9: the exact position users are least likely to
+      remember after scrolling past.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">snackly.app</span>
+      </div>
+      <div class="frame-body">
+        <div class="ser-stage">
+          <div class="ser-phone">
+            <div class="ser-notch"></div>
+            <div class="ser-screen">
+              <div class="ser-appname">Snack<span>ly</span></div>
+              <div class="ser-sub">Delivering to: Elm St 24 · 15–25 min</div>
+
+              <div class="ser-section-title">Popular dishes — Marco's Trattoria</div>
+              <div class="ser-carousel">
+                <div class="ser-dish"><div class="ser-art">🥗</div><h5>Caesar side salad</h5><div class="ser-price">$5.90</div></div>
+                <div class="ser-dish"><div class="ser-art">🍞</div><h5>Garlic bread</h5><div class="ser-price">$4.20</div></div>
+                <div class="ser-dish"><div class="ser-art">🍝</div><h5>Penne arrabbiata</h5><div class="ser-price">$11.50</div></div>
+                <div class="ser-dish"><div class="ser-art">🍕</div><h5>Margherita</h5><div class="ser-price">$10.90</div></div>
+                <div class="ser-dish ser-signature"><div class="ser-art">🍕</div><span class="ser-badge">Signature</span><h5>Truffle burrata pizza</h5><div class="ser-price">$16.40</div></div>
+                <div class="ser-dish"><div class="ser-art">🍲</div><h5>Minestrone</h5><div class="ser-price">$7.80</div></div>
+                <div class="ser-dish"><div class="ser-art">🧀</div><h5>Caprese</h5><div class="ser-price">$8.60</div></div>
+                <div class="ser-dish"><div class="ser-art">🍰</div><h5>Tiramisu</h5><div class="ser-price">$6.50</div></div>
+                <div class="ser-dish"><div class="ser-art">🥤</div><h5>Homemade lemonade</h5><div class="ser-price">$3.90</div></div>
+              </div>
+
+              <div class="ser-section-title">All restaurants nearby</div>
+              <div class="ser-resto"><div class="ser-art">🍜</div><div><h5>Golden Wok</h5><p>Chinese · 4.6 ★ · 20–30 min</p></div></div>
+              <div class="ser-resto"><div class="ser-art">🌮</div><div><h5>Taquería Sol</h5><p>Mexican · 4.4 ★ · 15–25 min</p></div></div>
+              <div class="ser-resto"><div class="ser-art">🍔</div><div><h5>Patty Shack</h5><p>Burgers · 4.7 ★ · 10–20 min</p></div></div>
+              <div class="ser-resto"><div class="ser-art">🍣</div><div><h5>Kaiyo Sushi</h5><p>Japanese · 4.8 ★ · 25–35 min</p></div></div>
+              <div class="ser-resto"><div class="ser-art">🥙</div><div><h5>Pita Corner</h5><p>Greek · 4.5 ★ · 15–25 min</p></div></div>
+              <div class="ser-resto"><div class="ser-art">🍛</div><div><h5>Bombay Express</h5><p>Indian · 4.6 ★ · 20–30 min</p></div></div>
+            </div>
+            <nav class="ser-nav" aria-label="App navigation (before)">
+              <button><span class="ser-nav-ico">🏷️</span>Promos</button>
+              <button><span class="ser-nav-ico">📋</span>Orders</button>
+              <button class="ser-active"><span class="ser-nav-ico">🏠</span>Home</button>
+              <button><span class="ser-nav-ico ser-cart-count">🛒</span>Cart</button>
+              <button><span class="ser-nav-ico">❓</span>Help</button>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      Same five tabs, reordered: [Home · Search · Promos · Orders · Cart]. Home takes the primacy slot, Cart the
+      recency slot — the two positions muscle memory finds without looking. In the carousel, the signature dish leads
+      (first impression) and the “Order again” shortcut closes the series (last thing seen before choosing).
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">snackly.app</span>
+      </div>
+      <div class="frame-body">
+        <div class="ser-stage">
+          <div class="ser-phone">
+            <div class="ser-notch"></div>
+            <div class="ser-screen">
+              <div class="ser-appname">Snack<span>ly</span></div>
+              <div class="ser-sub">Delivering to: Elm St 24 · 15–25 min</div>
+
+              <div class="ser-section-title">Popular dishes — Marco's Trattoria</div>
+              <div class="ser-carousel">
+                <div class="ser-dish ser-signature"><div class="ser-art">🍕</div><span class="ser-badge">Signature</span><h5>Truffle burrata pizza</h5><div class="ser-price">$16.40</div></div>
+                <div class="ser-dish"><div class="ser-art">🍕</div><h5>Margherita</h5><div class="ser-price">$10.90</div></div>
+                <div class="ser-dish"><div class="ser-art">🍝</div><h5>Penne arrabbiata</h5><div class="ser-price">$11.50</div></div>
+                <div class="ser-dish"><div class="ser-art">🧀</div><h5>Caprese</h5><div class="ser-price">$8.60</div></div>
+                <div class="ser-dish"><div class="ser-art">🍲</div><h5>Minestrone</h5><div class="ser-price">$7.80</div></div>
+                <div class="ser-dish"><div class="ser-art">🥗</div><h5>Caesar side salad</h5><div class="ser-price">$5.90</div></div>
+                <div class="ser-dish"><div class="ser-art">🍞</div><h5>Garlic bread</h5><div class="ser-price">$4.20</div></div>
+                <div class="ser-dish"><div class="ser-art">🍰</div><h5>Tiramisu</h5><div class="ser-price">$6.50</div></div>
+                <div class="ser-dish ser-again"><div class="ser-art">🔁</div><h5>Order again: your usual</h5><div class="ser-price">1-tap reorder</div></div>
+              </div>
+
+              <div class="ser-section-title">All restaurants nearby</div>
+              <div class="ser-resto"><div class="ser-art">🍜</div><div><h5>Golden Wok</h5><p>Chinese · 4.6 ★ · 20–30 min</p></div></div>
+              <div class="ser-resto"><div class="ser-art">🌮</div><div><h5>Taquería Sol</h5><p>Mexican · 4.4 ★ · 15–25 min</p></div></div>
+              <div class="ser-resto"><div class="ser-art">🍔</div><div><h5>Patty Shack</h5><p>Burgers · 4.7 ★ · 10–20 min</p></div></div>
+              <div class="ser-resto"><div class="ser-art">🍣</div><div><h5>Kaiyo Sushi</h5><p>Japanese · 4.8 ★ · 25–35 min</p></div></div>
+              <div class="ser-resto"><div class="ser-art">🥙</div><div><h5>Pita Corner</h5><p>Greek · 4.5 ★ · 15–25 min</p></div></div>
+              <div class="ser-resto"><div class="ser-art">🍛</div><div><h5>Bombay Express</h5><p>Indian · 4.6 ★ · 20–30 min</p></div></div>
+            </div>
+            <nav class="ser-nav" aria-label="App navigation (after)">
+              <button class="ser-active"><span class="ser-nav-ico">🏠</span>Home</button>
+              <button><span class="ser-nav-ico">🔍</span>Search</button>
+              <button><span class="ser-nav-ico">🏷️</span>Promos</button>
+              <button><span class="ser-nav-ico">📋</span>Orders</button>
+              <button><span class="ser-nav-ico ser-cart-count">🛒</span>Cart</button>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li><strong>Primacy:</strong> the first item in a series gets rehearsed most and remembered best — so Home now opens the nav bar and the signature dish opens the carousel.</li>
+        <li><strong>Recency:</strong> the last item is freshest in memory when it's time to act — so Cart closes the nav bar and the “Order again” shortcut closes the carousel.</li>
+        <li>The middle positions, where recall is weakest, now hold the browse-y, lower-stakes items (Search, Promos, Orders).</li>
+        <li>Edge slots also help ergonomics: thumbs find the first and last tab without looking.</li>
+        <li>No tab or dish was added or removed — only the order changed.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “People reliably remember the first and last items in any row — the middle blurs. Right now our two
+        revenue-critical destinations, Home and Cart, sit in that blur while Promos and Help occupy the prime seats.
+        Reordering five tabs costs nothing to build, and it puts the actions that end in a purchase in the two
+        positions users find by muscle memory.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/serial-position-effect/">Serial Position Effect — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitts's Law — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .fit- prefix) */
+    .fit-phone {
+      width: 360px; max-width: 100%; margin: 0 auto;
+      border: 10px solid #1c2130; border-radius: 28px;
+      background: var(--surface); overflow: hidden;
+      display: flex; flex-direction: column; min-height: 560px;
+      position: relative;
+    }
+    .fit-phone .fit-notch {
+      height: 1.4rem; background: #1c2130; border-radius: 0 0 12px 12px;
+      width: 40%; margin: 0 auto;
+    }
+    .fit-screen { padding: .9rem 1rem 1.1rem; flex: 1; display: flex; flex-direction: column; font-size: .85rem; }
+    .fit-topbar { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .8rem; }
+    .fit-topbar h4 { margin: 0; font-size: .95rem; }
+    .fit-item {
+      display: flex; gap: .7rem; border: 1px solid var(--border); border-radius: 10px;
+      padding: .7rem; margin-bottom: .7rem; align-items: center;
+    }
+    .fit-thumb {
+      width: 3rem; height: 3rem; border-radius: 8px; background: var(--accent-soft);
+      display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex: none;
+    }
+    .fit-item .fit-meta { flex: 1; min-width: 0; }
+    .fit-item .fit-meta h5 { margin: 0 0 .1rem; font-size: .85rem; }
+    .fit-item .fit-meta .fit-price { color: var(--muted); font-size: .8rem; }
+    .fit-total { display: flex; justify-content: space-between; font-weight: 700; padding: .6rem 0; border-top: 1px solid var(--border); margin-top: .4rem; }
+    .fit-confirm { min-height: 1.3rem; font-size: .82rem; color: var(--ok); font-weight: 600; text-align: center; margin-top: .5rem; }
+
+    /* --- BEFORE: cramped targets --- */
+    .fit-buy-tiny {
+      font-size: 11px; color: var(--accent); text-decoration: underline;
+      background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit;
+    }
+    .fit-step-tiny { display: flex; align-items: center; gap: .2rem; }
+    .fit-step-tiny button {
+      width: 14px; height: 14px; font-size: 9px; line-height: 1; padding: 0;
+      border: 1px solid var(--border); background: var(--surface); border-radius: 3px;
+      cursor: pointer; color: var(--muted);
+    }
+    .fit-step-tiny span { font-size: .75rem; min-width: 1rem; text-align: center; }
+    .fit-links-tiny { font-size: 10.5px; margin-top: .1rem; }
+    .fit-links-tiny a { color: var(--muted); margin-right: .35rem; }
+    .fit-links-tiny a.fit-del { color: var(--danger); }
+
+    /* --- AFTER: generous targets --- */
+    .fit-step-big { display: flex; align-items: center; gap: .4rem; }
+    .fit-step-big button {
+      width: 44px; height: 44px; font-size: 1.1rem; padding: 0;
+      border: 1px solid var(--border); background: var(--surface); border-radius: 10px;
+      cursor: pointer; font-weight: 700; color: var(--ink);
+    }
+    .fit-step-big button:active { background: var(--accent-soft); }
+    .fit-step-big span { min-width: 1.6rem; text-align: center; font-weight: 600; }
+    .fit-buy-big {
+      width: 100%; height: 48px; font: inherit; font-weight: 700; font-size: 1rem;
+      background: var(--accent); color: #fff; border: 0; border-radius: 12px;
+      cursor: pointer; margin-top: auto;
+    }
+    .fit-buy-big:active { filter: brightness(.92); }
+    .fit-coupon-row { margin: .3rem 0 .8rem; }
+    .fit-coupon-row button {
+      font: inherit; font-size: .82rem; padding: .55rem .9rem; border-radius: 10px;
+      border: 1px dashed var(--border); background: transparent; color: var(--accent); cursor: pointer;
+    }
+    .fit-remove-row { text-align: center; margin-top: .8rem; }
+    .fit-remove-row button {
+      font: inherit; font-size: .8rem; color: var(--danger); background: none; border: 0;
+      padding: .6rem 1rem; cursor: pointer; text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Heuristic</span>
+    <h1>Fitts's Law</h1>
+    <p class="definition">The time to acquire a target is a function of the distance to and size of the target.</p>
+    <p class="takeaway"><strong>The scenario:</strong> a mobile checkout screen for a sneaker store. Both versions are
+      <em>live — try tapping the purchase action</em> and feel how long it takes your pointer (or thumb) to land on it.
+      Same screen, same actions; only size and placement of the targets differ.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      The most important action — “Complete purchase” — is an 11px text link tucked in the top-right corner,
+      the farthest point from a thumb. The quantity steppers are 14px squares, and “delete” sits one millimeter
+      from “apply coupon”: one shaky tap empties the cart instead of saving money.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">m.stridewear.shop/cart</span>
+      </div>
+      <div class="frame-body">
+        <div class="fit-phone" id="fit-before-phone">
+          <div class="fit-notch"></div>
+          <div class="fit-screen">
+            <div class="fit-topbar">
+              <h4>Your cart (2)</h4>
+              <button class="fit-buy-tiny" id="fit-before-buy">Complete purchase</button>
+            </div>
+            <div class="fit-item">
+              <div class="fit-thumb">👟</div>
+              <div class="fit-meta">
+                <h5>Stride Runner V2</h5>
+                <div class="fit-price">$89.00 · Size 42</div>
+                <div class="fit-links-tiny">
+                  <a href="#" onclick="return false;" class="fit-del">delete item</a>
+                  <a href="#" onclick="return false;">apply coupon</a>
+                  <a href="#" onclick="return false;">save for later</a>
+                </div>
+              </div>
+              <div class="fit-step-tiny">
+                <button aria-label="Decrease quantity">−</button><span>1</span><button aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+            <div class="fit-item">
+              <div class="fit-thumb">🧦</div>
+              <div class="fit-meta">
+                <h5>Crew socks 3-pack</h5>
+                <div class="fit-price">$14.00 · One size</div>
+                <div class="fit-links-tiny">
+                  <a href="#" onclick="return false;" class="fit-del">delete item</a>
+                  <a href="#" onclick="return false;">apply coupon</a>
+                  <a href="#" onclick="return false;">save for later</a>
+                </div>
+              </div>
+              <div class="fit-step-tiny">
+                <button aria-label="Decrease quantity">−</button><span>1</span><button aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+            <div class="fit-total"><span>Total</span><span>$103.00</span></div>
+            <p style="font-size:.72rem; color:var(--muted); margin:0;">
+              Free returns within 30 days. Shipping calculated at the next step.
+            </p>
+            <div class="fit-confirm" id="fit-before-confirm"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      The purchase action is now a full-width, 48px-tall button pinned to the bottom of the screen — the natural
+      thumb zone, and effectively an “edge” target you can slam into. Steppers are 44px tap targets, and the
+      destructive “Remove item” is separated from everything you tap often.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">m.stridewear.shop/cart</span>
+      </div>
+      <div class="frame-body">
+        <div class="fit-phone" id="fit-after-phone">
+          <div class="fit-notch"></div>
+          <div class="fit-screen">
+            <div class="fit-topbar">
+              <h4>Your cart (2)</h4>
+            </div>
+            <div class="fit-item">
+              <div class="fit-thumb">👟</div>
+              <div class="fit-meta">
+                <h5>Stride Runner V2</h5>
+                <div class="fit-price">$89.00 · Size 42</div>
+              </div>
+              <div class="fit-step-big">
+                <button aria-label="Decrease quantity">−</button><span>1</span><button aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+            <div class="fit-item">
+              <div class="fit-thumb">🧦</div>
+              <div class="fit-meta">
+                <h5>Crew socks 3-pack</h5>
+                <div class="fit-price">$14.00 · One size</div>
+              </div>
+              <div class="fit-step-big">
+                <button aria-label="Decrease quantity">−</button><span>1</span><button aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+            <div class="fit-coupon-row">
+              <button>🏷️ Apply coupon</button>
+            </div>
+            <div class="fit-total"><span>Total</span><span>$103.00</span></div>
+            <div class="fit-confirm" id="fit-after-confirm"></div>
+            <button class="fit-buy-big" id="fit-after-buy">Complete purchase — $103.00</button>
+            <div class="fit-remove-row">
+              <button>Remove an item…</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>The primary action went from an 11px corner link to a full-width 48px button at the bottom — bigger target, shorter travel, sitting in the thumb zone.</li>
+        <li>Full-width bottom placement acts like a screen edge: you can't overshoot it, so it's acquired almost instantly.</li>
+        <li>Quantity steppers grew from 14px to 44px — at or above the recommended minimum touch-target size.</li>
+        <li>The destructive “Remove item” moved away from frequent actions, so a near-miss no longer empties the cart.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “Every extra millimeter of distance and every pixel we shave off a button adds time and errors to the exact
+        moment the customer is trying to pay us. Making the buy button big and putting it where the thumb already rests
+        is the cheapest conversion optimization we can ship — and separating ‘delete’ from ‘coupon’ stops accidental
+        cart wipes that we currently read as abandonment.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/fittss-law/">Fitts's Law — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+<script>
+  // Show "✓ Added in X ms" — timed from the first pointer movement inside each
+  // phone after the panel is (re)armed, so the user can FEEL the difference.
+  function fitArm(phoneId, buyId, confirmId) {
+    const phone = document.getElementById(phoneId);
+    const buy = document.getElementById(buyId);
+    const confirm = document.getElementById(confirmId);
+    let start = null;
+    const mark = () => { if (start === null) start = performance.now(); };
+    phone.addEventListener('pointermove', mark);
+    phone.addEventListener('pointerdown', mark);
+    buy.addEventListener('click', () => {
+      const elapsed = start === null ? 0 : Math.round(performance.now() - start);
+      confirm.textContent = '✓ Added in ' + elapsed + ' ms';
+      start = null; // re-arm for the next attempt
+    });
+  }
+  fitArm('fit-before-phone', 'fit-before-buy', 'fit-before-confirm');
+  fitArm('fit-after-phone', 'fit-after-buy', 'fit-after-confirm');
+</script>
+</body>
+</html>

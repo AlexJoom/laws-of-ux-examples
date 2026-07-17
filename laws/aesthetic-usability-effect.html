@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aesthetic-Usability Effect — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .aes- prefix) */
+
+    /* ---------- BEFORE: cramped, clashing, no hierarchy ---------- */
+    .aes-bad { font-family: Verdana, Geneva, sans-serif; }
+    .aes-bad-top {
+      display: flex; align-items: center; gap: .4rem; flex-wrap: wrap;
+      background: #ffe600; border: 2px solid #ff0000; padding: .3rem .4rem; margin-bottom: .3rem;
+    }
+    .aes-bad-top h3 { font-size: .95rem; margin: 0; color: #0000cc; text-transform: uppercase; }
+    .aes-bad-top input {
+      font: inherit; font-size: .7rem; border: 2px inset #999; padding: .15rem .3rem; width: 9rem;
+    }
+    .aes-bad-top button {
+      font: inherit; font-size: .7rem; font-weight: bold; text-transform: uppercase;
+      background: #ff0000; color: #fff; border: 2px outset #cc0000; padding: .18rem .45rem; cursor: pointer;
+    }
+    .aes-bad-now {
+      display: flex; align-items: center; gap: .4rem; flex-wrap: wrap;
+      background: #00b3b3; border: 2px solid #006666; padding: .3rem .5rem; margin-bottom: .3rem; color: #fff;
+    }
+    .aes-bad-now .temp { font-size: 2rem; font-weight: bold; color: #ffff00; text-shadow: 1px 1px 0 #006666; }
+    .aes-bad-now .cond { font-size: .75rem; text-transform: uppercase; font-weight: bold; }
+    .aes-bad-now .feels { font-size: .65rem; background: #ff8800; border: 1px solid #663300; padding: .1rem .3rem; }
+    .aes-bad-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: .2rem; margin-bottom: .3rem; }
+    .aes-bad-stats div {
+      border: 2px solid #8800cc; background: #f2ccff; padding: .2rem .3rem;
+      font-size: .62rem; text-transform: uppercase; font-weight: bold; color: #440066;
+    }
+    .aes-bad-stats div b { display: block; font-size: .95rem; color: #cc0066; }
+    .aes-bad-hourly { display: flex; gap: .2rem; overflow-x: auto; margin-bottom: .3rem; }
+    .aes-bad-hourly div {
+      border: 2px solid #007700; background: #ccffcc; padding: .2rem .35rem; text-align: center;
+      font-size: .6rem; font-weight: bold; text-transform: uppercase; min-width: 3.2rem; color: #004400;
+    }
+    .aes-bad-hourly div .t { font-size: .85rem; color: #cc0000; }
+    .aes-bad-days { border: 3px double #0000cc; margin-bottom: .3rem; }
+    .aes-bad-days table { width: 100%; border-collapse: collapse; font-size: .65rem; }
+    .aes-bad-days td, .aes-bad-days th {
+      border: 1px solid #0000cc; padding: .18rem .35rem; text-transform: uppercase;
+    }
+    .aes-bad-days th { background: #0000cc; color: #ffff00; font-size: .6rem; }
+    .aes-bad-days tr:nth-child(even) td { background: #ffddaa; }
+    .aes-bad-days tr:nth-child(odd) td { background: #ffffff; }
+    .aes-bad-alert {
+      background: #ff0000; color: #ffff00; font-size: .7rem; font-weight: bold; text-transform: uppercase;
+      border: 2px dashed #ffff00; padding: .25rem .4rem; text-align: center;
+    }
+
+    /* ---------- AFTER: restrained palette, clear hierarchy ---------- */
+    .aes-good { max-width: 36rem; margin: 0 auto; }
+    .aes-good-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.4rem; }
+    .aes-good-top h3 { margin: 0; font-size: 1.05rem; }
+    .aes-good-top .aes-search { display: flex; gap: .4rem; }
+    .aes-good-top input {
+      font: inherit; font-size: .82rem; border: 1px solid var(--border); border-radius: 8px;
+      padding: .35rem .6rem; width: 11rem;
+    }
+    .aes-good-now { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: .3rem; }
+    .aes-good-now .temp { font-size: 3rem; font-weight: 700; letter-spacing: -.02em; }
+    .aes-good-now .cond { font-size: 1rem; color: var(--muted); }
+    .aes-good-feels { color: var(--muted); font-size: .85rem; margin-bottom: 1.4rem; }
+    .aes-good-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; margin-bottom: 1.6rem; }
+    .aes-good-stats div {
+      background: var(--bg); border-radius: 10px; padding: .6rem .75rem; font-size: .72rem; color: var(--muted);
+    }
+    .aes-good-stats div b { display: block; font-size: 1rem; color: var(--ink); margin-top: .1rem; }
+    .aes-good h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 0 0 .6rem; }
+    .aes-good-hourly { display: flex; gap: .5rem; overflow-x: auto; margin-bottom: 1.6rem; padding-bottom: .2rem; }
+    .aes-good-hourly div {
+      text-align: center; font-size: .72rem; color: var(--muted); min-width: 3.4rem;
+      padding: .5rem .3rem; border-radius: 10px;
+    }
+    .aes-good-hourly div:first-child { background: var(--accent-soft); }
+    .aes-good-hourly .ico { font-size: 1.05rem; display: block; margin: .2rem 0; }
+    .aes-good-hourly .t { font-size: .88rem; font-weight: 600; color: var(--ink); }
+    .aes-good-days { display: flex; flex-direction: column; }
+    .aes-good-days .row {
+      display: grid; grid-template-columns: 5rem 1.6rem 1fr auto; align-items: center; gap: .8rem;
+      padding: .5rem 0; border-bottom: 1px solid var(--border); font-size: .85rem;
+    }
+    .aes-good-days .row:last-child { border-bottom: 0; }
+    .aes-good-days .day { color: var(--muted); }
+    .aes-good-days .bar { height: 4px; border-radius: 2px; background: linear-gradient(90deg, #93c5fd, #f59e0b); }
+    .aes-good-days .range { font-variant-numeric: tabular-nums; }
+    .aes-good-days .range .lo { color: var(--muted); margin-right: .5rem; }
+    .aes-good-alert {
+      background: var(--warn-soft); color: var(--warn); font-size: .82rem;
+      border-radius: 10px; padding: .5rem .8rem; margin-top: 1.4rem;
+    }
+    @media (max-width: 600px) {
+      .aes-good-stats, .aes-bad-stats { grid-template-columns: repeat(2, 1fr); }
+      .aes-good-top { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Heuristic</span>
+    <h1>Aesthetic-Usability Effect</h1>
+    <p class="definition">Users often perceive aesthetically pleasing design as design that's more usable.</p>
+    <p class="takeaway"><strong>The scenario:</strong> a weather app dashboard. Both versions below show the <em>exact same
+      city, data, and features</em> — search, current conditions, four stats, an hourly strip, a 5-day forecast, and a rain
+      alert. Only the visual design differs. Notice which one you'd trust with your weekend plans.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      Nothing is missing — and yet everything feels broken. Saturated clashing colors, borders around every element,
+      ALL-CAPS labels, cramped spacing, and six competing font sizes give the eye no entry point. Users rate interfaces
+      like this as harder to use and less accurate, even when the data is identical.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">skypulse-weather.com/dashboard</span>
+      </div>
+      <div class="frame-body">
+        <div class="aes-bad">
+          <div class="aes-bad-top">
+            <h3>⛅ SKYPULSE WEATHER!!</h3>
+            <input type="text" value="Athens, GR" aria-label="City search">
+            <button type="button">GO!</button>
+            <button type="button">°C/°F</button>
+          </div>
+          <div class="aes-bad-now">
+            <span class="temp">27°</span>
+            <span class="cond">Partly cloudy</span>
+            <span class="feels">FEELS LIKE: 29°</span>
+            <span class="feels">UPDATED: 14:02</span>
+          </div>
+          <div class="aes-bad-stats">
+            <div>HUMIDITY<b>48%</b></div>
+            <div>WIND<b>14 KM/H</b></div>
+            <div>UV INDEX<b>7 HIGH</b></div>
+            <div>PRESSURE<b>1013 HPA</b></div>
+          </div>
+          <div class="aes-bad-hourly">
+            <div>NOW<br>☀️<br><span class="t">27°</span></div>
+            <div>15:00<br>☀️<br><span class="t">28°</span></div>
+            <div>16:00<br>⛅<br><span class="t">28°</span></div>
+            <div>17:00<br>⛅<br><span class="t">27°</span></div>
+            <div>18:00<br>☁️<br><span class="t">25°</span></div>
+            <div>19:00<br>🌧️<br><span class="t">23°</span></div>
+            <div>20:00<br>🌧️<br><span class="t">22°</span></div>
+          </div>
+          <div class="aes-bad-days">
+            <table>
+              <tr><th>DAY</th><th>SKY</th><th>MIN</th><th>MAX</th></tr>
+              <tr><td>WED</td><td>⛅</td><td>19°</td><td>28°</td></tr>
+              <tr><td>THU</td><td>🌧️</td><td>18°</td><td>24°</td></tr>
+              <tr><td>FRI</td><td>☀️</td><td>17°</td><td>26°</td></tr>
+              <tr><td>SAT</td><td>☀️</td><td>18°</td><td>29°</td></tr>
+              <tr><td>SUN</td><td>⛅</td><td>19°</td><td>30°</td></tr>
+            </table>
+          </div>
+          <div class="aes-bad-alert">!!! RAIN ALERT: SHOWERS EXPECTED THU AFTERNOON !!!</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      Not one feature. Same city, same numbers, same alert. A restrained palette, generous spacing, one clear focal point
+      (the temperature), and a quiet visual hierarchy make the same data feel effortless — and the app feel more accurate
+      and more trustworthy.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">skypulse-weather.com/dashboard</span>
+      </div>
+      <div class="frame-body">
+        <div class="aes-good">
+          <div class="aes-good-top">
+            <h3>⛅ SkyPulse</h3>
+            <div class="aes-search">
+              <input type="text" value="Athens, GR" aria-label="City search">
+              <button class="btn" type="button" style="font-size:.8rem; padding:.35rem .8rem;">°C / °F</button>
+            </div>
+          </div>
+          <div class="aes-good-now">
+            <span class="temp">27°</span>
+            <span class="cond">Partly cloudy</span>
+          </div>
+          <p class="aes-good-feels">Feels like 29° · Updated 14:02</p>
+          <div class="aes-good-stats">
+            <div>Humidity<b>48%</b></div>
+            <div>Wind<b>14 km/h</b></div>
+            <div>UV index<b>7 · High</b></div>
+            <div>Pressure<b>1013 hPa</b></div>
+          </div>
+          <h4>Next hours</h4>
+          <div class="aes-good-hourly">
+            <div>Now<span class="ico">☀️</span><span class="t">27°</span></div>
+            <div>15:00<span class="ico">☀️</span><span class="t">28°</span></div>
+            <div>16:00<span class="ico">⛅</span><span class="t">28°</span></div>
+            <div>17:00<span class="ico">⛅</span><span class="t">27°</span></div>
+            <div>18:00<span class="ico">☁️</span><span class="t">25°</span></div>
+            <div>19:00<span class="ico">🌧️</span><span class="t">23°</span></div>
+            <div>20:00<span class="ico">🌧️</span><span class="t">22°</span></div>
+          </div>
+          <h4>5-day forecast</h4>
+          <div class="aes-good-days">
+            <div class="row"><span class="day">Wed</span><span>⛅</span><span class="bar"></span><span class="range"><span class="lo">19°</span>28°</span></div>
+            <div class="row"><span class="day">Thu</span><span>🌧️</span><span class="bar"></span><span class="range"><span class="lo">18°</span>24°</span></div>
+            <div class="row"><span class="day">Fri</span><span>☀️</span><span class="bar"></span><span class="range"><span class="lo">17°</span>26°</span></div>
+            <div class="row"><span class="day">Sat</span><span>☀️</span><span class="bar"></span><span class="range"><span class="lo">18°</span>29°</span></div>
+            <div class="row"><span class="day">Sun</span><span>⛅</span><span class="bar"></span><span class="range"><span class="lo">19°</span>30°</span></div>
+          </div>
+          <div class="aes-good-alert">☔ Rain alert — showers expected Thursday afternoon.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>Zero functional changes — every number, feature, and alert exists in both versions.</li>
+        <li>One focal point (the 27° temperature) instead of six elements shouting at once.</li>
+        <li>Restrained palette with color reserved for meaning (the rain alert) — not decoration.</li>
+        <li>ALL-CAPS labels, heavy borders, and cramped spacing replaced with whitespace and a consistent type scale.</li>
+        <li>Studies of the aesthetic-usability effect show users forgive minor issues in interfaces they find pleasing — and blame themselves less.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “These two dashboards are functionally identical, yet users will rate the clean one as easier to use, more
+        accurate, and more trustworthy — that's a documented perception bias, not taste. Visual polish isn't cosmetic
+        spend; it directly buys perceived quality, tolerance for small bugs, and brand trust. It's the cheapest
+        usability improvement we can ship, because we don't have to change a single feature.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/aesthetic-usability-effect/">Aesthetic-Usability Effect — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

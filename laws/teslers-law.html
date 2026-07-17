@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tesler's Law — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .tes- prefix) */
+    .tes-form { max-width: 34rem; margin: 0 auto; }
+    .tes-form h3 { margin-bottom: .2rem; }
+    .tes-sub { font-size: .85rem; color: var(--muted); margin-bottom: 1.3rem; }
+    .tes-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 .8rem; }
+    .tes-row-narrowfirst { display: grid; grid-template-columns: 8rem 1fr; gap: 0 .8rem; }
+    @media (max-width: 600px) { .tes-row, .tes-row-narrowfirst { grid-template-columns: 1fr; } }
+
+    /* ---------- BEFORE: user carries the complexity ---------- */
+    .tes-bad-hint { font-size: .75rem; color: var(--warn); }
+    .tes-bad-error { font-size: .75rem; color: var(--danger); }
+
+    /* ---------- AFTER: system carries the complexity ---------- */
+    .tes-autocomplete { position: relative; }
+    .tes-suggest {
+      position: absolute; top: 100%; left: 0; right: 0; z-index: 5;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      box-shadow: var(--shadow); margin-top: .25rem; overflow: hidden; font-size: .85rem;
+    }
+    .tes-suggest div { padding: .45rem .75rem; display: flex; justify-content: space-between; gap: .6rem; }
+    .tes-suggest div .code { color: var(--muted); font-size: .75rem; }
+    .tes-suggest div.sel { background: var(--accent-soft); }
+    .tes-good-detected { font-size: .78rem; color: var(--ok); }
+    .tes-flag { margin-right: .3rem; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Principle</span>
+    <h1>Tesler's Law</h1>
+    <p class="definition">For any system there is a certain amount of complexity which cannot be reduced.</p>
+    <p class="takeaway"><strong>The scenario:</strong> searching for a flight on Velocair. Airports really do have IATA
+      codes, fares really do have classes, and dates really do need parsing — that complexity can't be deleted. The only
+      question Tesler's Law asks is: <em>who deals with it — the customer, or our software?</em></p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      The airline's internal complexity is handed straight to the traveler: memorize 3-letter IATA codes, type dates in
+      one exact format, decode raw fare-class letters (Y? K? T?), and look up your own country calling code. The system
+      does the least work possible — so the customer does the most.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">velocair.com/booking</span>
+      </div>
+      <div class="frame-body">
+        <form class="tes-form" onsubmit="return false;">
+          <h3>Flight search</h3>
+          <p class="tes-sub">One-way and return fares. All fields are required.</p>
+          <div class="tes-row">
+            <div class="field">
+              <label for="tes-b-from">Origin airport code</label>
+              <input id="tes-b-from" type="text" maxlength="3" placeholder="ATH" style="text-transform:uppercase;">
+              <span class="tes-bad-hint">⚠ Use the official 3-letter IATA code, e.g. ATH. City names are not accepted.</span>
+            </div>
+            <div class="field">
+              <label for="tes-b-to">Destination airport code</label>
+              <input id="tes-b-to" type="text" maxlength="3" placeholder="LHR" style="text-transform:uppercase;">
+              <span class="tes-bad-hint">⚠ London has multiple airports (LHR, LGW, STN, LTN, LCY). Pick the correct one.</span>
+            </div>
+          </div>
+          <div class="tes-row">
+            <div class="field">
+              <label for="tes-b-depart">Departure date</label>
+              <input id="tes-b-depart" type="text" placeholder="DD/MM/YYYY">
+              <span class="tes-bad-error">✗ Date must be entered exactly as DD/MM/YYYY, including leading zeros.</span>
+            </div>
+            <div class="field">
+              <label for="tes-b-return">Return date</label>
+              <input id="tes-b-return" type="text" placeholder="DD/MM/YYYY">
+            </div>
+          </div>
+          <div class="field">
+            <label for="tes-b-fare">Fare class</label>
+            <select id="tes-b-fare">
+              <option>Select booking class code…</option>
+              <option>Y</option><option>B</option><option>M</option><option>H</option>
+              <option>K</option><option>L</option><option>T</option><option>J</option><option>F</option>
+            </select>
+            <span class="tes-bad-hint">⚠ Refer to your travel agent or the fare rules PDF for class definitions.</span>
+          </div>
+          <div class="tes-row-narrowfirst">
+            <div class="field">
+              <label for="tes-b-cc">Country code</label>
+              <input id="tes-b-cc" type="text" placeholder="+30">
+              <span class="tes-bad-hint">⚠ Enter your international dialing prefix manually.</span>
+            </div>
+            <div class="field">
+              <label for="tes-b-phone">Contact phone</label>
+              <input id="tes-b-phone" type="tel" placeholder="2105550199">
+            </div>
+          </div>
+          <button class="btn btn-primary" type="button">Search flights</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      Not one gram of complexity was deleted — it was <em>relocated</em>. The software now maps city names to IATA codes,
+      parses human dates, translates fare classes into plain language, and detects the phone country. The traveler types
+      what they know; the system translates it into what the airline needs.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">velocair.com/booking</span>
+      </div>
+      <div class="frame-body">
+        <form class="tes-form" onsubmit="return false;">
+          <h3>Flight search</h3>
+          <p class="tes-sub">Where would you like to go?</p>
+          <div class="tes-row">
+            <div class="field tes-autocomplete">
+              <label for="tes-a-from">From</label>
+              <input id="tes-a-from" type="text" value="ath" aria-label="Origin city or airport"
+                     aria-describedby="tes-a-from-suggest" autocomplete="off">
+              <div class="tes-suggest" id="tes-a-from-suggest" role="listbox" aria-label="Suggestions">
+                <div class="sel" role="option" aria-selected="true">✈️ Athens, Greece <span class="code">ATH — Eleftherios Venizelos</span></div>
+                <div role="option" aria-selected="false">✈️ Athens, GA, USA <span class="code">AHN</span></div>
+              </div>
+            </div>
+            <div class="field">
+              <label for="tes-a-to">To</label>
+              <input id="tes-a-to" type="text" value="London (any airport)" aria-label="Destination city or airport">
+              <span class="hint">We'll compare all 5 London airports for you.</span>
+            </div>
+          </div>
+          <div class="tes-row">
+            <div class="field">
+              <label for="tes-a-depart">Departure</label>
+              <input id="tes-a-depart" type="text" placeholder="e.g. next Friday">
+              <span class="hint">Type a date any way you like — “12 Oct”, “12/10”, “next Friday” all work.</span>
+            </div>
+            <div class="field">
+              <label for="tes-a-return">Return <span style="font-weight:400; color:var(--muted);">(optional)</span></label>
+              <input id="tes-a-return" type="text" placeholder="e.g. 3 days later">
+            </div>
+          </div>
+          <div class="field">
+            <label for="tes-a-fare">Fare</label>
+            <select id="tes-a-fare">
+              <option>Economy Light — hand luggage only</option>
+              <option selected>Economy Flexible — free changes, checked bag</option>
+              <option>Business — lounge, priority, full flexibility</option>
+            </select>
+            <span class="hint">We map these to the airline's booking classes behind the scenes.</span>
+          </div>
+          <div class="field">
+            <label for="tes-a-phone">Contact phone</label>
+            <input id="tes-a-phone" type="tel" value="210 555 0199">
+            <span class="tes-good-detected"><span class="tes-flag">🇬🇷</span>Greece (+30) detected automatically — <a href="#" onclick="return false;">change</a></span>
+          </div>
+          <button class="btn btn-primary" type="button">Search flights</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>IATA codes still exist — but an autocomplete maps “ath” → “Athens (ATH)” so the software does the lookup, not the traveler.</li>
+        <li>Strict DD/MM/YYYY input replaced by a forgiving parser: “12 Oct” and “next Friday” both work.</li>
+        <li>Raw booking-class letters (Y, M, K, T…) translated into three plain-language fares; the mapping happens behind the scenes.</li>
+        <li>Country calling code auto-detected instead of demanded, with a one-click override.</li>
+        <li>Total system complexity is unchanged — it moved from the form fields into the code, where it's handled once instead of by every customer.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “The complexity in flight booking is irreducible — airport codes, fare classes, and date parsing have to be
+        handled by <em>someone</em>. Today that someone is every single customer, on every single booking, and they pay
+        for it in errors and abandonment. If we move that work into our software, we solve it once and it's solved for
+        everyone. Engineering absorbing a week of complexity so thousands of customers never see it is the best trade
+        on our roadmap.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/teslers-law/">Tesler's Law — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Occam's Razor — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .occ- prefix) */
+    .occ-form { max-width: 32rem; margin: 0 auto; }
+    .occ-form h3 { margin-bottom: .2rem; }
+    .occ-sub { font-size: .85rem; color: var(--muted); margin-bottom: 1.3rem; }
+    .occ-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 .8rem; }
+    .occ-row-3 { display: grid; grid-template-columns: 6rem 1fr 1fr; gap: 0 .8rem; }
+    .occ-req { color: var(--danger); }
+    .occ-checks { font-size: .82rem; display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; color: var(--muted); }
+    .occ-checks label { display: flex; gap: .45rem; align-items: flex-start; }
+    .occ-checks input { margin-top: .2rem; }
+    .occ-note { font-size: .8rem; color: var(--muted); margin-top: .8rem; }
+    .occ-fieldcount {
+      font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+      border-radius: 999px; padding: .15rem .65rem; display: inline-block; margin-bottom: 1rem;
+    }
+    .occ-fieldcount.bad { background: var(--danger-soft); color: var(--danger); }
+    .occ-fieldcount.good { background: var(--ok-soft); color: var(--ok); }
+    @media (max-width: 600px) { .occ-row, .occ-row-3 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Principle</span>
+    <h1>Occam's Razor</h1>
+    <p class="definition">Among competing hypotheses that predict equally well, the one with the fewest assumptions should be selected.</p>
+    <p class="takeaway"><strong>The scenario:</strong> registering for a free product webinar. Applied to UX, the razor
+      means: analyze each element and remove as many as possible without compromising the function of the whole. Both
+      forms below accomplish the same job — reserving a seat. One demands twelve answers first; the other demands three.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      Marketing wanted lead data, sales wanted firmographics, legal wanted checkboxes — and the attendee just wanted a
+      seat. Twelve-plus fields (including a <em>fax number</em>) for a free webinar. Every field is a small toll booth,
+      and most visitors turn around before the end of the road.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">gridframe.io/webinar/scaling-dashboards</span>
+      </div>
+      <div class="frame-body">
+        <form class="occ-form" onsubmit="return false;">
+          <h3>Reserve your seat</h3>
+          <p class="occ-sub">Live webinar · “Scaling Dashboards Without Scaling Headcount” · Sep 24, 16:00 EEST</p>
+          <span class="occ-fieldcount bad">14 fields to complete</span>
+          <div class="occ-row-3">
+            <div class="field">
+              <label for="occ-b-salutation">Salutation <span class="occ-req">*</span></label>
+              <select id="occ-b-salutation"><option>—</option><option>Mr.</option><option>Ms.</option><option>Mx.</option><option>Dr.</option><option>Prof.</option></select>
+            </div>
+            <div class="field">
+              <label for="occ-b-first">First name <span class="occ-req">*</span></label>
+              <input id="occ-b-first" type="text">
+            </div>
+            <div class="field">
+              <label for="occ-b-middle">Middle name</label>
+              <input id="occ-b-middle" type="text">
+            </div>
+          </div>
+          <div class="occ-row">
+            <div class="field">
+              <label for="occ-b-last">Last name <span class="occ-req">*</span></label>
+              <input id="occ-b-last" type="text">
+            </div>
+            <div class="field">
+              <label for="occ-b-email">Business email <span class="occ-req">*</span></label>
+              <input id="occ-b-email" type="email">
+            </div>
+          </div>
+          <div class="occ-row">
+            <div class="field">
+              <label for="occ-b-company">Company <span class="occ-req">*</span></label>
+              <input id="occ-b-company" type="text">
+            </div>
+            <div class="field">
+              <label for="occ-b-title">Job title <span class="occ-req">*</span></label>
+              <input id="occ-b-title" type="text">
+            </div>
+          </div>
+          <div class="occ-row">
+            <div class="field">
+              <label for="occ-b-size">Company size <span class="occ-req">*</span></label>
+              <select id="occ-b-size"><option>—</option><option>1–10</option><option>11–50</option><option>51–200</option><option>201–1000</option><option>1000+</option></select>
+            </div>
+            <div class="field">
+              <label for="occ-b-industry">Industry <span class="occ-req">*</span></label>
+              <select id="occ-b-industry"><option>—</option><option>Software</option><option>Finance</option><option>Healthcare</option><option>Manufacturing</option><option>Retail</option><option>Education</option><option>Other</option></select>
+            </div>
+          </div>
+          <div class="occ-row">
+            <div class="field">
+              <label for="occ-b-phone">Phone <span class="occ-req">*</span></label>
+              <input id="occ-b-phone" type="tel">
+            </div>
+            <div class="field">
+              <label for="occ-b-fax">Fax</label>
+              <input id="occ-b-fax" type="tel">
+            </div>
+          </div>
+          <div class="field">
+            <label for="occ-b-address">Company address</label>
+            <input id="occ-b-address" type="text" placeholder="Street, city, postal code, country">
+          </div>
+          <div class="field">
+            <label for="occ-b-hear">How did you hear about us? <span class="occ-req">*</span></label>
+            <select id="occ-b-hear"><option>—</option><option>Search engine</option><option>Social media</option><option>Colleague</option><option>Event</option><option>Newsletter</option><option>Other</option></select>
+          </div>
+          <div class="occ-checks">
+            <label><input type="checkbox"> Subscribe me to the monthly GridFrame newsletter</label>
+            <label><input type="checkbox"> Subscribe me to product update announcements</label>
+            <label><input type="checkbox"> I agree to the Terms of Service and Privacy Policy <span class="occ-req">*</span></label>
+          </div>
+          <button class="btn btn-primary" type="button">Submit registration</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      Each field was interrogated: does removing this break the function — reserving a seat? Eleven of them didn't
+      survive the question. What remains is the irreducible minimum: who you are, where to send the link, and how many
+      seats. Everything else can be asked later or enriched automatically from the email domain.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">gridframe.io/webinar/scaling-dashboards</span>
+      </div>
+      <div class="frame-body">
+        <form class="occ-form" onsubmit="return false;">
+          <h3>Reserve your seat</h3>
+          <p class="occ-sub">Live webinar · “Scaling Dashboards Without Scaling Headcount” · Sep 24, 16:00 EEST</p>
+          <span class="occ-fieldcount good">3 fields to complete</span>
+          <div class="field">
+            <label for="occ-a-name">Your name</label>
+            <input id="occ-a-name" type="text" placeholder="Maria Papadaki">
+          </div>
+          <div class="field">
+            <label for="occ-a-email">Work email</label>
+            <input id="occ-a-email" type="email" placeholder="maria@company.com">
+            <span class="hint">We'll send the joining link here.</span>
+          </div>
+          <div class="field">
+            <label for="occ-a-seats">Number of seats</label>
+            <select id="occ-a-seats"><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select>
+          </div>
+          <button class="btn btn-primary" type="button">Register — it's free</button>
+          <p class="occ-note">That's all we need for now. We may ask about your company after you register, and details
+            like industry and company size are filled in automatically from your email domain. By registering you agree
+            to our <a href="#" onclick="return false;">terms</a>.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>14 inputs → 3. Each removed field failed the razor's test: the form works equally well without it.</li>
+        <li>Salutation, middle name, fax, and address served no one — deleted outright.</li>
+        <li>Firmographics (company, size, industry) are enriched automatically from the email domain instead of being asked.</li>
+        <li>Sales questions moved to a post-registration follow-up, when the attendee is already committed.</li>
+        <li>Two opt-in checkboxes and a consent box collapsed into one plain-language sentence with a terms link.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “Every field we ask before the ‘Register’ click taxes the exact people we ran this webinar to attract — industry
+        studies consistently show that cutting registration forms from 10+ fields to 3–4 lifts conversion by 25% or
+        more. We're not giving up the lead data: we get company details automatically from the email domain and ask the
+        rest after registration, when people are invested. Shorter form, same intelligence, meaningfully more
+        attendees.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/occams-razor/">Occam's Razor — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>

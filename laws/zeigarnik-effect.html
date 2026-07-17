@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zeigarnik Effect — Before &amp; After</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Demo-specific styles (scoped with .zeig- prefix) */
+    .zeig-layout { display: grid; grid-template-columns: 1fr 16rem; gap: 1.2rem; align-items: start; }
+    @media (max-width: 640px) { .zeig-layout { grid-template-columns: 1fr; } }
+    .zeig-profile { border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.2rem; }
+    .zeig-profile-head { display: flex; gap: .9rem; align-items: center; margin-bottom: 1rem; }
+    .zeig-avatar {
+      width: 3.4rem; height: 3.4rem; border-radius: 50%; background: var(--accent-soft);
+      display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex: none;
+    }
+    .zeig-profile-head h4 { margin: 0; font-size: 1rem; }
+    .zeig-profile-head p { margin: 0; color: var(--muted); font-size: .82rem; }
+    .zeig-row { padding: .55rem 0; border-top: 1px solid var(--border); font-size: .85rem; display: flex; justify-content: space-between; gap: 1rem; }
+    .zeig-row .zeig-key { color: var(--muted); flex: none; }
+    .zeig-row .zeig-val { text-align: right; }
+    .zeig-row .zeig-empty { color: #b8bdcc; font-style: italic; }
+    .zeig-side { border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; font-size: .85rem; }
+    .zeig-side h4 { font-size: .9rem; margin-bottom: .5rem; }
+
+    /* AFTER: strength meter + checklist */
+    .zeig-meter { height: .6rem; background: var(--accent-soft); border-radius: 999px; overflow: hidden; margin: .4rem 0 .3rem; }
+    .zeig-meter i { display: block; height: 100%; width: 70%; background: var(--accent); border-radius: 999px; }
+    .zeig-meter-label { display: flex; justify-content: space-between; font-size: .78rem; color: var(--muted); margin-bottom: .7rem; }
+    .zeig-meter-label strong { color: var(--ink); }
+    .zeig-check { list-style: none; margin: 0 0 .9rem; padding: 0; }
+    .zeig-check li { display: flex; gap: .5rem; align-items: baseline; padding: .28rem 0; }
+    .zeig-check .done { color: var(--ok); }
+    .zeig-check .todo { color: var(--ink); font-weight: 600; }
+    .zeig-check .zeig-mark { flex: none; }
+    .zeig-cta { width: 100%; font-size: .85rem; }
+    .zeig-side .zeig-hint { font-size: .75rem; color: var(--muted); margin: .6rem 0 0; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">Laws of UX <span>· Examples</span></a>
+    <a class="back" href="../index.html">← All laws</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="law-intro">
+    <span class="tag">Principle</span>
+    <h1>Zeigarnik Effect</h1>
+    <p class="definition">People remember uncompleted or interrupted tasks better than completed tasks.</p>
+    <p class="takeaway"><strong>The scenario:</strong> Craftfolio, a freelancer marketplace. Freelancers with complete
+      profiles get several times more invitations. Dana filled in about 60% of her profile at signup and hasn't touched
+      it since. The data is identical in both versions — the difference is whether the product ever <em>opens a loop</em>
+      that pulls her back.</p>
+  </section>
+
+  <div class="toggle" role="group" aria-label="Toggle before and after example">
+    <button data-panel="before" class="active" aria-pressed="true">✗ Before</button>
+    <button data-panel="after" aria-pressed="false">✓ After</button>
+  </div>
+
+  <!-- ============================== BEFORE ============================== -->
+  <section class="panel panel-before">
+    <div class="callout bad">
+      <strong>What's wrong here?</strong>
+      A static settings page. Empty fields render as quiet gray dashes — no meter, no checklist, no consequence shown.
+      Dana thinks she's done; the task is “completed” in her mind, so it never resurfaces. Meanwhile her incomplete
+      profile silently ranks lower and gets fewer job invitations.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">craftfolio.com/settings/profile</span>
+      </div>
+      <div class="frame-body">
+        <div class="zeig-layout">
+          <div class="zeig-profile">
+            <div class="zeig-profile-head">
+              <div class="zeig-avatar">👩‍💻</div>
+              <div>
+                <h4>Dana Petridis</h4>
+                <p>UX / UI Designer · Athens</p>
+              </div>
+            </div>
+            <div class="zeig-row"><span class="zeig-key">Photo</span><span class="zeig-val">✓ Uploaded</span></div>
+            <div class="zeig-row"><span class="zeig-key">Skills</span><span class="zeig-val">Figma, Design systems, Prototyping</span></div>
+            <div class="zeig-row"><span class="zeig-key">Hourly rate</span><span class="zeig-val">€55 / hr</span></div>
+            <div class="zeig-row"><span class="zeig-key">Portfolio</span><span class="zeig-val zeig-empty">—</span></div>
+            <div class="zeig-row"><span class="zeig-key">ID verification</span><span class="zeig-val zeig-empty">—</span></div>
+            <div class="zeig-row"><span class="zeig-key">Intro video</span><span class="zeig-val zeig-empty">—</span></div>
+          </div>
+          <div class="zeig-side">
+            <h4>Account</h4>
+            <p style="margin:0 0 .6rem;">Membership: Free plan</p>
+            <p style="margin:0 0 .6rem;">Member since: March 2026</p>
+            <button class="btn" style="width:100%; font-size:.85rem;">Edit profile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== AFTER =============================== -->
+  <section class="panel panel-after" hidden>
+    <div class="callout good">
+      <strong>What changed?</strong>
+      A “Profile strength: 70%” meter and a checklist with two unchecked items turn a finished-looking page into an
+      unfinished task. The open circles are the point: they create a loop the brain wants to close. One clear next
+      action with a time estimate makes closing it feel easy.
+    </div>
+    <div class="demo-frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">craftfolio.com/settings/profile</span>
+      </div>
+      <div class="frame-body">
+        <div class="zeig-layout">
+          <div class="zeig-profile">
+            <div class="zeig-profile-head">
+              <div class="zeig-avatar">👩‍💻</div>
+              <div>
+                <h4>Dana Petridis</h4>
+                <p>UX / UI Designer · Athens</p>
+              </div>
+            </div>
+            <div class="zeig-row"><span class="zeig-key">Photo</span><span class="zeig-val">✓ Uploaded</span></div>
+            <div class="zeig-row"><span class="zeig-key">Skills</span><span class="zeig-val">Figma, Design systems, Prototyping</span></div>
+            <div class="zeig-row"><span class="zeig-key">Hourly rate</span><span class="zeig-val">€55 / hr</span></div>
+            <div class="zeig-row"><span class="zeig-key">Portfolio</span><span class="zeig-val zeig-empty">Not added yet</span></div>
+            <div class="zeig-row"><span class="zeig-key">ID verification</span><span class="zeig-val zeig-empty">Not verified</span></div>
+            <div class="zeig-row"><span class="zeig-key">Intro video</span><span class="zeig-val zeig-empty">Optional</span></div>
+          </div>
+          <div class="zeig-side">
+            <h4>Profile strength</h4>
+            <div class="zeig-meter" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"><i></i></div>
+            <div class="zeig-meter-label"><strong>70%</strong><span>Top freelancers: 100%</span></div>
+            <ul class="zeig-check">
+              <li class="done"><span class="zeig-mark">✓</span> Photo added</li>
+              <li class="done"><span class="zeig-mark">✓</span> Skills listed</li>
+              <li class="done"><span class="zeig-mark">✓</span> Hourly rate set</li>
+              <li class="todo"><span class="zeig-mark">○</span> Add a portfolio item</li>
+              <li class="todo"><span class="zeig-mark">○</span> Verify your ID</li>
+            </ul>
+            <button class="btn btn-primary zeig-cta">Add portfolio item (2 min)</button>
+            <p class="zeig-hint">Profiles at 100% get up to 4× more job invitations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPLANATION ============================ -->
+  <section class="explain">
+    <div class="box">
+      <h2>🔍 What changed</h2>
+      <ul>
+        <li>A visible “Profile strength: 70%” meter reframes the profile as an in-progress task, not a finished one.</li>
+        <li>The checklist mixes ✓ done items with ○ open items — earned progress plus a conspicuous, memorable gap.</li>
+        <li>One primary next action with a time estimate (“2 min”) lowers the cost of closing the loop right now.</li>
+        <li>The stakes are stated (“up to 4× more invitations”), so completing isn't busywork — it's clearly worth it.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>💼 Explaining it to stakeholders</h2>
+      <p class="pitch">
+        “An incomplete profile that <em>looks</em> complete is a dead end: the user forgets it, and our marketplace
+        quietly serves them fewer jobs. Unfinished tasks nag at people — but only if they can see the task is
+        unfinished. Showing the gap as an open loop with one two-minute next step is what turns dormant 60% profiles
+        into complete ones, and complete profiles are what make the marketplace liquid.”
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Based on <a href="https://lawsofux.com/zeigarnik-effect/">Zeigarnik Effect — lawsofux.com</a></div>
+</footer>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>
