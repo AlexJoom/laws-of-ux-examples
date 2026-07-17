@@ -196,7 +196,7 @@ a { color: var(--accent); }
 /* Law illustration — original artwork from lawsofux.com (© Jon Yablonski, CC BY-NC-ND 4.0) */
 .law-intro .law-art {
   grid-column: 2;
-  grid-row: 1 / span 3;
+  grid-row: 1 / span 4;
   align-self: center;
   border-radius: var(--radius);
   padding: 1.1rem;
@@ -222,6 +222,8 @@ a { color: var(--accent); }
 }
 
 .law-intro .takeaway { max-width: 68ch; }
+
+.law-intro .source-link { font-size: .85rem; margin: -.4rem 0 1.1rem; padding-left: calc(1rem + 3px); }
 
 /* Before / After toggle */
 
