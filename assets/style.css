@@ -135,11 +135,59 @@ a { color: var(--accent); }
 
 .aud-card p { color: var(--muted); font-size: .92rem; margin: 0; }
 
+/* Progress tracker (localStorage — per browser) */
+
+.progress-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.1rem 1.4rem;
+  margin: .5rem 0 1rem;
+}
+
+.progress-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+
+.progress-head h2 { font-size: 1rem; margin: 0; }
+
+#progress-count { font-size: .85rem; font-weight: 600; color: var(--muted); }
+
+.progress-bar {
+  height: .55rem;
+  background: var(--accent-soft);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: .65rem;
+}
+
+.progress-bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--ok);
+  border-radius: 999px;
+  transition: width .4s ease;
+}
+
+.progress-note { font-size: .8rem; color: var(--muted); margin: .65rem 0 0; }
+
+/* Law groups */
+
+.law-group { margin-top: 2rem; }
+
+.group-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+
+.group-head h2 { font-size: 1.25rem; letter-spacing: -.01em; margin: 0; }
+
+.group-count { font-size: .85rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+
+.group-desc { color: var(--muted); font-size: .95rem; max-width: 70ch; margin: .3rem 0 1rem; }
+
 .law-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1rem;
-  padding: 1.5rem 0 2rem;
+  padding: 0 0 .5rem;
 }
 
 .law-card {
@@ -156,7 +204,23 @@ a { color: var(--accent); }
   transition: transform .12s ease, border-color .12s ease;
 }
 
+.law-card { position: relative; }
+
 .law-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+
+.law-card.learned::after {
+  content: "✓ Learned";
+  position: absolute;
+  top: .7rem;
+  right: .7rem;
+  background: var(--ok);
+  color: #fff;
+  font-size: .7rem;
+  font-weight: 700;
+  padding: .18rem .6rem;
+  border-radius: 999px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+}
 
 /* Card illustration — original artwork from lawsofux.com (© Jon Yablonski, CC BY-NC-ND 4.0) */
 .law-card .card-art {
@@ -347,6 +411,37 @@ a { color: var(--accent); }
 .explain ul { margin: .5rem 0 0; padding-left: 1.2rem; }
 .explain li { margin-bottom: .45rem; font-size: .95rem; }
 .explain .pitch { font-size: .95rem; color: var(--muted); margin: .5rem 0 0; }
+
+/* "Mark as learned" box at the bottom of each law page */
+
+.learn-check {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem 1.3rem;
+  margin: 2rem 0 1rem;
+}
+
+.learn-btn {
+  font: inherit;
+  font-weight: 600;
+  border: 1.5px solid var(--ok);
+  color: var(--ok);
+  background: transparent;
+  border-radius: 999px;
+  padding: .5rem 1.3rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.learn-btn.is-learned { background: var(--ok); color: #fff; }
+
+.learn-check p { margin: 0; font-size: .85rem; color: var(--muted); }
 
 /* Prev / next law navigation at the bottom of each law page */
 
